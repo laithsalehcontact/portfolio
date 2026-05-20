@@ -1,273 +1,438 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="ls-system-active js-enabled no-touch">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAITH SALEH | Systems Architect</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LAITH SALEH | Enterprise Systems Architect</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700;900&family=Tajawal:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
     <style>
+        /* ==========================================================================
+           1. CORE SYSTEM VARIABLES & RESET (هندسة المتغيرات)
+           ========================================================================== */
         :root {
-            --gc-red: #e60000;
-            --gc-black: #000000;
-            --gc-dark: #111111;
-            --gc-white: #ffffff;
-            --gc-gray: #333333;
+            --gc-blood: #d90000;
+            --gc-blood-glow: rgba(217, 0, 0, 0.4);
+            --sys-black: #050505;
+            --sys-dark: #121212;
+            --sys-gray: #1e1e1e;
+            --sys-light-gray: #888888;
+            --sys-white: #ffffff;
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Tajawal', sans-serif;
+            --font-code: 'Share Tech Mono', monospace;
+            --section-padding: 100px 5%;
+            --border-heavy: 4px solid var(--gc-blood);
         }
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--gc-black);
-            color: var(--gc-white);
+            background-color: var(--sys-black);
+            color: var(--sys-white);
+            font-family: var(--font-body);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* --- شريط التنقل (Navbar) --- */
-        .navbar {
+        /* ==========================================================================
+           2. MEGA NAVIGATION SYSTEM (الشريط العلوي المعقد)
+           ========================================================================== */
+        .ls-header-wrapper {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 9999;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--sys-gray);
+        }
+
+        /* شريط البيانات الدقيقة (Micro-Data Bar) */
+        .sys-top-bar {
+            background: var(--gc-blood);
+            height: 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 50px;
-            background-color: var(--gc-white);
-            color: var(--gc-black);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 0 5%;
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            font-family: 'Oswald', sans-serif;
         }
 
-        .logo { font-size: 2rem; font-weight: 700; letter-spacing: -1px; }
-        .logo span { color: var(--gc-red); }
+        .sys-nodes { display: flex; gap: 20px; }
+        .node-status { display: flex; align-items: center; gap: 5px; }
+        .indicator { width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 8px #0f0; }
 
-        .nav-links a {
-            color: var(--gc-black);
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+        /* شريط التنقل الرئيسي */
+        .main-nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 5%;
         }
-        .nav-links a:hover { color: var(--gc-red); }
 
-        /* --- القسم الافتتاحي (Hero Section) --- */
-        .hero {
-            height: 80vh;
-            background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
+        .brand-matrix {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 10%;
-            border-bottom: 5px solid var(--gc-red);
         }
 
-        .hero h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 5rem;
-            line-height: 1.1;
+        .brand-name {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        .brand-name span { color: var(--gc-blood); }
+        
+        .brand-sub {
+            font-family: var(--font-code);
+            font-size: 0.65rem;
+            color: var(--sys-light-gray);
+            letter-spacing: 3px;
+        }
+
+        .heavy-menu { display: flex; list-style: none; gap: 30px; }
+        .heavy-menu a {
+            color: var(--sys-white);
+            text-decoration: none;
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        .heavy-menu a:hover { color: var(--gc-blood); }
+        .heavy-menu a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px;
+            background: var(--gc-blood); transition: width 0.3s ease;
+        }
+        .heavy-menu a:hover::after { width: 100%; }
+
+        /* ==========================================================================
+           3. HERO COMPLEX (منطقة الواجهة المعمارية)
+           ========================================================================== */
+        .hero-complex {
+            position: relative;
+            margin-top: 115px; /* تعويض حجم الهيدر */
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            background-color: var(--sys-black);
+            overflow: hidden;
+        }
+
+        /* طبقات الخلفية المتعددة (Multi-layered Background) */
+        .hero-layer-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=80') center/cover;
+            opacity: 0.4;
+            z-index: 1;
+            filter: grayscale(100%) contrast(120%);
+        }
+        
+        .hero-layer-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0.8) 50%, rgba(5,5,5,0.2) 100%);
+            z-index: 2;
+        }
+
+        .hero-grid-pattern {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 3;
+        }
+
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .system-badge {
+            display: inline-block;
+            background: rgba(217, 0, 0, 0.1);
+            border: 1px solid var(--gc-blood);
+            color: var(--gc-blood);
+            font-family: var(--font-code);
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px var(--gc-blood-glow);
+        }
+
+        .hero-mega-title {
+            font-family: var(--font-head);
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
             text-transform: uppercase;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            color: var(--sys-white);
+            text-shadow: 5px 5px 0px rgba(0,0,0,1);
+        }
+        .hero-mega-title span { color: var(--gc-blood); }
+
+        .hero-dense-text {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            border-right: 4px solid var(--gc-blood);
+            padding-right: 20px;
         }
 
-        .hero h1 span { color: var(--gc-red); }
-
-        .btn-red {
-            background-color: var(--gc-red);
-            color: var(--gc-white);
-            padding: 15px 40px;
-            font-size: 1.2rem;
+        /* أزرار ضخمة (Massive Action Buttons) */
+        .action-cluster { display: flex; gap: 20px; flex-wrap: wrap; }
+        
+        .btn-heavy {
+            padding: 20px 50px;
+            font-family: var(--font-head);
+            font-size: 1.3rem;
             font-weight: 700;
-            font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             text-decoration: none;
-            display: inline-block;
-            border-radius: 5px;
-            border: 2px solid var(--gc-red);
-            transition: all 0.3s;
-            width: fit-content;
-        }
-
-        .btn-red:hover {
-            background-color: transparent;
-            color: var(--gc-red);
-        }
-
-        /* --- قسم التعريف والسلطة (Authority Section) --- */
-        .about-section {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 80px 10%;
-            background-color: var(--gc-black);
-            align-items: center;
-            gap: 50px;
-        }
-
-        .about-text { flex: 1; min-width: 300px; }
-        
-        .about-text h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
-            color: var(--gc-white);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-            height: 500px;
-            background: var(--gc-dark); /* هنا ستضع صورتك الاحترافية ببدلة أو بمظهر قوي */
-            border-bottom: 10px solid var(--gc-red);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #555;
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-        }
-
-        /* --- قسم المشاريع (Grid Section like Cardone's Events/Podcasts) --- */
-        .projects-section {
-            padding: 80px 10%;
-            background-color: var(--gc-dark);
-            text-align: center;
-        }
-
-        .projects-section h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3.5rem;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .project-card {
-            position: relative;
-            height: 350px;
-            background-color: var(--gc-gray);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 4px solid transparent;
-            transition: border 0.3s;
+            letter-spacing: 1px;
+            transition: all 0.2s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .project-card:hover { border-bottom: 4px solid var(--gc-red); }
+        .btn-primary { background: var(--gc-blood); color: #fff; border: 2px solid var(--gc-blood); }
+        .btn-primary:hover { background: transparent; color: var(--gc-blood); box-shadow: inset 0 0 20px rgba(217,0,0,0.2); }
+        
+        .btn-ghost { background: transparent; color: #fff; border: 2px solid var(--sys-gray); }
+        .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
 
-        .project-card h3 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            z-index: 2;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-            padding: 20px;
+        /* ==========================================================================
+           4. DATA & METRICS RIBBON (شريط الإحصائيات المكثف)
+           ========================================================================== */
+        .metrics-ribbon {
+            display: flex;
+            border-top: 1px solid var(--sys-gray);
+            border-bottom: 1px solid var(--sys-gray);
+            background: var(--sys-dark);
         }
 
-        .project-card span { color: var(--gc-red); }
-
-        /* --- الفوتر (Footer) --- */
-        .footer {
-            background-color: var(--gc-black);
-            padding: 50px 10%;
+        .metric-block {
+            flex: 1;
+            padding: 40px 20px;
             text-align: center;
-            border-top: 1px solid var(--gc-gray);
+            border-left: 1px solid var(--sys-gray);
+            transition: background 0.3s;
+        }
+        .metric-block:hover { background: #181818; }
+        .metric-block:last-child { border-left: none; }
+
+        .m-value {
+            font-family: var(--font-head);
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gc-blood);
+            line-height: 1;
+        }
+        .m-label {
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            color: var(--sys-light-gray);
+            text-transform: uppercase;
+            margin-top: 10px;
+            letter-spacing: 2px;
         }
 
-        .social-icons {
+        /* ==========================================================================
+           5. DEEP DIVE ARCHITECTURE SECTION (قسم التفاصيل الهندسية)
+           ========================================================================== */
+        .architecture-section {
+            padding: var(--section-padding);
+            background: var(--sys-black);
+        }
+
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 {
+            font-family: var(--font-head);
+            font-size: 4rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .section-header p {
+            color: var(--gc-blood);
+            font-family: var(--font-code);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* شبكة متداخلة (Nested CSS Grid) */
+        .deep-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .complex-card {
+            background: var(--sys-dark);
+            border: 1px solid var(--sys-gray);
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complex-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--gc-blood);
+            transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease;
+        }
+        .complex-card:hover::before { transform: scaleX(1); transform-origin: left; }
+
+        .card-meta {
+            font-family: var(--font-code);
+            color: var(--sys-light-gray);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .complex-card h3 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .complex-card p {
+            font-size: 1.1rem;
+            color: #aaa;
             margin-bottom: 30px;
         }
 
-        .social-icons span {
-            display: inline-block;
-            width: 50px; height: 50px;
-            background-color: var(--gc-red);
-            margin: 0 10px;
-            line-height: 50px;
-            font-weight: bold;
-            font-family: 'Oswald', sans-serif;
-            cursor: pointer;
+        /* لوحة التحكم الوهمية داخل البطاقة */
+        .tech-specs {
+            background: #000;
+            padding: 20px;
+            border: 1px solid #222;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            color: #0f0;
         }
+        .tech-specs li { list-style: none; margin-bottom: 8px; border-bottom: 1px dashed #333; padding-bottom: 8px; }
+        .tech-specs li:last-child { border: none; margin: 0; padding: 0; }
+        .tech-specs span { color: #fff; float: left; }
+
     </style>
 </head>
-<body>
+<body data-elementor-device-mode="desktop">
 
-    <nav class="navbar">
-        <div class="logo">LAITH <span>SALEH</span></div>
-        <div class="nav-links">
-            <a href="#">About</a>
-            <a href="#">Systems</a>
-            <a href="#">Deployments</a>
-            <a href="#">Contact</a>
+    <header class="ls-header-wrapper" id="master-header">
+        <div class="sys-top-bar">
+            <div class="sys-nodes">
+                <div class="node-status"><div class="indicator"></div> HYBRID KERNEL: SECURE</div>
+                <div class="node-status"><div class="indicator"></div> PROJECT LON: AUTOMATING</div>
+            </div>
+            <div class="sys-auth">ACCESS LEVEL: ROOT ARCHITECT</div>
         </div>
-    </nav>
-
-    <header class="hero">
-        <h1>DOMINATE YOUR<br><span>DIGITAL INFRASTRUCTURE</span></h1>
-        <p style="font-size: 1.5rem; margin-bottom: 30px; max-width: 600px;">
-            توقف عن استخدام الأنظمة التقليدية. ابنِ معماريات برمجية تهيمن على السوق.
-        </p>
-        <a href="#" class="btn-red">Secure Your System</a>
+        
+        <nav class="main-nav-container">
+            <div class="brand-matrix">
+                <div class="brand-name">LAITH <span>SALEH</span></div>
+                <div class="brand-sub">SYS_ENG // JORDAN_HQ</div>
+            </div>
+            <ul class="heavy-menu">
+                <li><a href="#core">Core Architecture</a></li>
+                <li><a href="#deployments">Deployments</a></li>
+                <li><a href="#metrics">System Metrics</a></li>
+                <li><a href="#contact" style="color: var(--gc-blood);">Initiate Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="about-section">
-        <div class="about-text">
-            <h2>Architect of Hybrid Systems & Automated Networks</h2>
-            <p>
-                ليث صالح يمتلك ويدير مشاريع برمجية معقدة مصممة لكسر القيود التقليدية. بصفته مهندس أنظمة متقدمة، يركز على بناء حلول تقنية لا تقبل المنافسة.
-            </p>
-            <p>
-                لأكثر من سنوات من التعلم المعمق والتطبيق الشرس، تم تطوير <strong>Project LON</strong>، وهو شبكة ميديا رقمية مؤتمتة بالكامل تعتمد على Python و مسارات عمل GitHub Actions لتعمل بشكل ذاتي دون تدخل بشري، مما يوفر آلاف الساعات ويضاعف الإنتاجية بـ 10 أضعاف (10X).
-            </p>
-            <p>
-                بالإضافة إلى هندسة أنظمة تشغيل متقدمة تعتمد على النواة الهجينة (Hybrid Kernel) مع دمج أصيل للذكاء الاصطناعي، نحن نقدم مستوى من الاحترافية التقنية لا يقدمه إلا قلة في العالم.
-            </p>
-            <a href="#" class="btn-red" style="margin-top: 20px;">Read Full Bio</a>
-        </div>
-        <div class="about-image">
-            [YOUR PROFESSIONAL PHOTO HERE]
-        </div>
-    </section>
+    <main>
+        <section class="hero-complex" id="core">
+            <div class="hero-layer-bg"></div>
+            <div class="hero-layer-overlay"></div>
+            <div class="hero-grid-pattern"></div>
+            
+            <div class="hero-content-wrapper">
+                <div class="system-badge">[INITIATING 10X PROTOCOL]</div>
+                <h1 class="hero-mega-title">ENGINEERED TO <br><span>DOMINATE</span></h1>
+                <p class="hero-dense-text">
+                    الأنظمة العظيمة لا تُبنى بالصدفة. إنها تتطلب المتانة الهندسية الكلاسيكية الممزوجة بالأداء الهجومي الكاسح للتقنيات الحديثة. نحن نبني البنية التحتية التي لا تقهر.
+                </p>
+                <div class="action-cluster">
+                    <a href="#" class="btn-heavy btn-primary">Deploy Architecture</a>
+                    <a href="#" class="btn-heavy btn-ghost">Analyze Codebase</a>
+                </div>
+            </div>
+        </section>
 
-    <section class="projects-section">
-        <h2>DOMINATING <span>PROJECTS</span></h2>
-        <div class="projects-grid">
-            <div class="project-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80') center/cover;">
-                <h3>PROJECT <span>LON</span></h3>
+        <section class="metrics-ribbon" id="metrics">
+            <div class="metric-block">
+                <div class="m-value">100%</div>
+                <div class="m-label">Automation Efficiency</div>
             </div>
-            <div class="project-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80') center/cover;">
-                <h3>HYBRID <span>KERNEL</span></h3>
+            <div class="metric-block">
+                <div class="m-value">0.0</div>
+                <div class="m-label">Human Intervention Required</div>
             </div>
-            <div class="project-card" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80') center/cover;">
-                <h3>AI <span>INTEGRATION</span></h3>
+            <div class="metric-block">
+                <div class="m-value">∞</div>
+                <div class="m-label">Scalability Limits</div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="footer">
-        <div class="social-icons">
-            <span>GH</span>
-            <span>IN</span>
-            <span>X</span>
-        </div>
-        <p>&copy; 2026 LAITH SALEH. ALL RIGHTS RESERVED. DOMINATE YOUR MARKET.</p>
-    </footer>
+        <section class="architecture-section" id="deployments">
+            <div class="section-header">
+                <h2>HEAVY-DUTY <span>SYSTEMS</span></h2>
+                <p>RAW POWER. REFINED LOGIC. ABSOLUTE CONTROL.</p>
+            </div>
+
+            <div class="deep-grid">
+                
+                <article class="complex-card" data-project-id="lon-01" data-status="active">
+                    <span class="card-meta">DATA_STREAM // PYTHON_AUTOMATION</span>
+                    <h3>Project <span>LON</span></h3>
+                    <p>
+                        شبكة ميديا رقمية مؤتمتة بالكامل. مصممة لتعمل كآلة عالية الأداء، تولد وتدير المحتوى بفاعلية ساحقة عبر سكربتات Python وسير عمل GitHub Actions. لا توجد أعذار، فقط تنفيذ آلي مستمر.
+                    </p>
+                    <ul class="tech-specs">
+                        <li>[RUNTIME] <span>24/7 Uninterrupted</span></li>
+                        <li>[CORE] <span>Python Automation Engine</span></li>
+                        <li>[DEPLOY] <span>GitHub Actions CI/CD</span></li>
+                    </ul>
+                </article>
+
+                <article class="complex-card" data-project-id="ker-02" data-status="development">
+                    <span class="card-meta">OS_LEVEL // AI_INTEGRATION</span>
+                    <h3>Hybrid <span>Kernel</span> OS</h3>
+                    <p>
+                        بناء نظام تشغيل من الصفر يتخطى المعماريات التقليدية. دمج أصيل للذكاء الاصطناعي داخل نواة هجينة، يوفر استقراراً أسطورياً (كالمحركات العريقة) وسرعة استجابة هائلة تنافس أحدث الأنظمة.
+                    </p>
+                    <ul class="tech-specs">
+                        <li>[ARCHITECTURE] <span>Custom Hybrid Kernel</span></li>
+                        <li>[INTEGRATION] <span>Native AI Algorithms</span></li>
+                        <li>[MEMORY_MGT] <span>Predictive Allocation</span></li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>
