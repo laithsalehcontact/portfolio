@@ -1,438 +1,650 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="ls-system-active js-enabled no-touch">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LAITH SALEH | Enterprise Systems Architect</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700;900&family=Tajawal:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ==========================================================================
-           1. CORE SYSTEM VARIABLES & RESET (هندسة المتغيرات)
-           ========================================================================== */
-        :root {
-            --gc-blood: #d90000;
-            --gc-blood-glow: rgba(217, 0, 0, 0.4);
-            --sys-black: #050505;
-            --sys-dark: #121212;
-            --sys-gray: #1e1e1e;
-            --sys-light-gray: #888888;
-            --sys-white: #ffffff;
-            --font-head: 'Oswald', sans-serif;
-            --font-body: 'Tajawal', sans-serif;
-            --font-code: 'Share Tech Mono', monospace;
-            --section-padding: 100px 5%;
-            --border-heavy: 4px solid var(--gc-blood);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laith Saleh | CIS Student & Future Tech Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8001d;
+    --gold: #c9a84c;
+    --black: #080808;
+    --dark: #111111;
+    --mid: #1a1a1a;
+    --white: #f5f5f5;
+    --gray: #888;
+  }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background-color: var(--sys-black);
-            color: var(--sys-white);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ==========================================================================
-           2. MEGA NAVIGATION SYSTEM (الشريط العلوي المعقد)
-           ========================================================================== */
-        .ls-header-wrapper {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 9999;
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--sys-gray);
-        }
+  html { scroll-behavior: smooth; }
 
-        /* شريط البيانات الدقيقة (Micro-Data Bar) */
-        .sys-top-bar {
-            background: var(--gc-blood);
-            height: 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            font-family: var(--font-head);
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
 
-        .sys-nodes { display: flex; gap: 20px; }
-        .node-status { display: flex; align-items: center; gap: 5px; }
-        .indicator { width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 8px #0f0; }
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(8,8,8,0.95);
+    border-bottom: 1px solid #222;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--white); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.85;
+    transition: opacity .2s, color .2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--red); }
+  .nav-cta {
+    background: var(--red); color: #fff;
+    border: none; padding: 10px 22px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; transition: background .2s;
+  }
+  .nav-cta:hover { background: #c00018; }
 
-        /* شريط التنقل الرئيسي */
-        .main-nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-            padding: 0 5%;
-        }
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #080808 0%, #0f0f0f 50%, #0a0a0a 100%);
+    padding-top: 64px;
+  }
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 20vw, 300px);
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap; pointer-events: none; user-select: none;
+    letter-spacing: -5px;
+  }
+  .hero-line {
+    position: absolute; top: 0; right: 35%;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--red) 30%, var(--red) 70%, transparent);
+    opacity: 0.4;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 80px;
+    max-width: 900px;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 4px;
+    color: var(--red); text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 16px; border: 1px solid var(--red);
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .hero-name .accent { color: var(--red); }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-sub {
+    font-size: 17px; line-height: 1.7;
+    color: rgba(245,245,245,0.65);
+    max-width: 520px;
+    margin-bottom: 44px;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    border: none; padding: 16px 36px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; transition: background .2s, transform .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: #c00018; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.4); padding: 16px 36px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; transition: border-color .2s, color .2s, transform .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
 
-        .brand-matrix {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--red);
+    display: flex; justify-content: space-around; flex-wrap: wrap;
+    padding: 28px 40px;
+  }
+  .stat-item { text-align: center; padding: 8px 20px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; letter-spacing: 2px; color: #fff;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,0.75);
+  }
 
-        .brand-name {
-            font-family: var(--font-head);
-            font-size: 2.2rem;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -1px;
-        }
-        .brand-name span { color: var(--gc-blood); }
-        
-        .brand-sub {
-            font-family: var(--font-code);
-            font-size: 0.65rem;
-            color: var(--sys-light-gray);
-            letter-spacing: 3px;
-        }
+  /* ── SECTION DEFAULTS ── */
+  section { padding: 100px 80px; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 5px;
+    color: var(--red); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: 2px; line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .divider {
+    width: 60px; height: 3px;
+    background: var(--red);
+    margin-bottom: 48px;
+  }
 
-        .heavy-menu { display: flex; list-style: none; gap: 30px; }
-        .heavy-menu a {
-            color: var(--sys-white);
-            text-decoration: none;
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s;
-        }
+  /* ── ABOUT ── */
+  #about { background: var(--dark); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-placeholder {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1a1a1a, #222);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 3px; color: var(--gray);
+    border: 1px solid #2a2a2a;
+    position: relative; overflow: hidden;
+  }
+  .about-photo-placeholder::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(232,0,29,0.03) 40px, rgba(232,0,29,0.03) 80px
+    );
+  }
+  .about-photo-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--red); padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .about-photo-corner {
+    position: absolute; top: 20px; right: 20px;
+    width: 40px; height: 40px;
+    border-top: 3px solid var(--red);
+    border-right: 3px solid var(--red);
+  }
+  .about-text p {
+    font-size: 17px; line-height: 1.8;
+    color: rgba(245,245,245,0.7);
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--white); }
+  .about-skills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 32px;
+  }
+  .skill-tag {
+    padding: 8px 18px;
+    border: 1px solid #333;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gray);
+    transition: border-color .2s, color .2s;
+  }
+  .skill-tag:hover { border-color: var(--red); color: var(--red); }
 
-        .heavy-menu a:hover { color: var(--gc-blood); }
-        .heavy-menu a::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px;
-            background: var(--gc-blood); transition: width 0.3s ease;
-        }
-        .heavy-menu a:hover::after { width: 100%; }
+  /* ── SKILLS / EXPERTISE ── */
+  #skills { background: var(--black); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .skill-card {
+    background: var(--mid);
+    padding: 48px 36px;
+    transition: background .2s;
+    cursor: default;
+    border-top: 3px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+  .skill-card:hover { background: #1f1f1f; border-top-color: var(--red); }
+  .skill-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px; color: rgba(232,0,29,0.15);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .skill-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .skill-card p { font-size: 15px; color: rgba(245,245,245,0.55); line-height: 1.7; }
 
-        /* ==========================================================================
-           3. HERO COMPLEX (منطقة الواجهة المعمارية)
-           ========================================================================== */
-        .hero-complex {
-            position: relative;
-            margin-top: 115px; /* تعويض حجم الهيدر */
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
-            background-color: var(--sys-black);
-            overflow: hidden;
-        }
+  /* ── PROJECTS ── */
+  #projects { background: var(--dark); }
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .project-card {
+    background: var(--black);
+    padding: 44px 40px;
+    border-left: 3px solid transparent;
+    transition: border-color .2s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover { border-left-color: var(--red); transform: translateX(4px); }
+  .project-card::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 60px; height: 60px;
+    border-bottom: 60px solid transparent;
+    border-right: 60px solid #1a1a1a;
+  }
+  .project-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 16px;
+  }
+  .project-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .project-card p { font-size: 14px; color: rgba(245,245,245,0.55); line-height: 1.7; }
+  .project-tech {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .tech-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    padding: 4px 10px; background: rgba(201,168,76,0.1);
+  }
 
-        /* طبقات الخلفية المتعددة (Multi-layered Background) */
-        .hero-layer-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=80') center/cover;
-            opacity: 0.4;
-            z-index: 1;
-            filter: grayscale(100%) contrast(120%);
-        }
-        
-        .hero-layer-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0.8) 50%, rgba(5,5,5,0.2) 100%);
-            z-index: 2;
-        }
+  /* ── GOALS ── */
+  #goals { background: var(--black); }
+  .goals-list { max-width: 800px; }
+  .goal-item {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding: 36px 0;
+    border-bottom: 1px solid #1e1e1e;
+  }
+  .goal-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px; color: var(--red);
+    line-height: 1; flex-shrink: 0; width: 72px;
+  }
+  .goal-content h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .goal-content p { font-size: 15px; color: rgba(245,245,245,0.55); line-height: 1.7; }
 
-        .hero-grid-pattern {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 3;
-        }
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--red);
+    text-align: center;
+  }
+  #contact .section-title { color: #fff; }
+  #contact .section-tag { color: rgba(255,255,255,0.7); }
+  #contact p {
+    font-size: 18px; color: rgba(255,255,255,0.85);
+    max-width: 560px; margin: 0 auto 40px; line-height: 1.7;
+  }
+  .contact-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: #fff; color: var(--red);
+    border: none; padding: 16px 40px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; transition: transform .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+  .btn-white-outline {
+    background: transparent; color: #fff;
+    border: 2px solid rgba(255,255,255,0.6); padding: 16px 40px; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; transition: border-color .2s, transform .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-white-outline:hover { border-color: #fff; transform: translateY(-2px); }
 
-        .hero-content-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 900px;
-        }
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    padding: 48px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #1a1a1a;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; letter-spacing: 3px; color: var(--white);
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a {
+    color: var(--gray); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy {
+    font-size: 13px; color: #444;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+  }
 
-        .system-badge {
-            display: inline-block;
-            background: rgba(217, 0, 0, 0.1);
-            border: 1px solid var(--gc-blood);
-            color: var(--gc-blood);
-            font-family: var(--font-code);
-            padding: 5px 15px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px var(--gc-blood-glow);
-        }
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag    { animation: fadeUp .6s ease both; animation-delay: 0.1s; }
+  .hero-name   { animation: fadeUp .6s ease both; animation-delay: 0.2s; }
+  .hero-title  { animation: fadeUp .6s ease both; animation-delay: 0.3s; }
+  .hero-sub    { animation: fadeUp .6s ease both; animation-delay: 0.4s; }
+  .hero-buttons{ animation: fadeUp .6s ease both; animation-delay: 0.5s; }
 
-        .hero-mega-title {
-            font-family: var(--font-head);
-            font-size: clamp(4rem, 8vw, 8rem);
-            font-weight: 900;
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--sys-white);
-            text-shadow: 5px 5px 0px rgba(0,0,0,1);
-        }
-        .hero-mega-title span { color: var(--gc-blood); }
-
-        .hero-dense-text {
-            font-size: 1.4rem;
-            color: #b0b0b0;
-            max-width: 700px;
-            margin-bottom: 40px;
-            font-weight: 400;
-            border-right: 4px solid var(--gc-blood);
-            padding-right: 20px;
-        }
-
-        /* أزرار ضخمة (Massive Action Buttons) */
-        .action-cluster { display: flex; gap: 20px; flex-wrap: wrap; }
-        
-        .btn-heavy {
-            padding: 20px 50px;
-            font-family: var(--font-head);
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-decoration: none;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary { background: var(--gc-blood); color: #fff; border: 2px solid var(--gc-blood); }
-        .btn-primary:hover { background: transparent; color: var(--gc-blood); box-shadow: inset 0 0 20px rgba(217,0,0,0.2); }
-        
-        .btn-ghost { background: transparent; color: #fff; border: 2px solid var(--sys-gray); }
-        .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
-
-        /* ==========================================================================
-           4. DATA & METRICS RIBBON (شريط الإحصائيات المكثف)
-           ========================================================================== */
-        .metrics-ribbon {
-            display: flex;
-            border-top: 1px solid var(--sys-gray);
-            border-bottom: 1px solid var(--sys-gray);
-            background: var(--sys-dark);
-        }
-
-        .metric-block {
-            flex: 1;
-            padding: 40px 20px;
-            text-align: center;
-            border-left: 1px solid var(--sys-gray);
-            transition: background 0.3s;
-        }
-        .metric-block:hover { background: #181818; }
-        .metric-block:last-child { border-left: none; }
-
-        .m-value {
-            font-family: var(--font-head);
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--gc-blood);
-            line-height: 1;
-        }
-        .m-label {
-            font-family: var(--font-code);
-            font-size: 0.9rem;
-            color: var(--sys-light-gray);
-            text-transform: uppercase;
-            margin-top: 10px;
-            letter-spacing: 2px;
-        }
-
-        /* ==========================================================================
-           5. DEEP DIVE ARCHITECTURE SECTION (قسم التفاصيل الهندسية)
-           ========================================================================== */
-        .architecture-section {
-            padding: var(--section-padding);
-            background: var(--sys-black);
-        }
-
-        .section-header { text-align: center; margin-bottom: 80px; }
-        .section-header h2 {
-            font-family: var(--font-head);
-            font-size: 4rem;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-        .section-header p {
-            color: var(--gc-blood);
-            font-family: var(--font-code);
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        /* شبكة متداخلة (Nested CSS Grid) */
-        .deep-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .complex-card {
-            background: var(--sys-dark);
-            border: 1px solid var(--sys-gray);
-            padding: 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .complex-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: var(--gc-blood);
-            transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease;
-        }
-        .complex-card:hover::before { transform: scaleX(1); transform-origin: left; }
-
-        .card-meta {
-            font-family: var(--font-code);
-            color: var(--sys-light-gray);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .complex-card h3 {
-            font-family: var(--font-head);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .complex-card p {
-            font-size: 1.1rem;
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-
-        /* لوحة التحكم الوهمية داخل البطاقة */
-        .tech-specs {
-            background: #000;
-            padding: 20px;
-            border: 1px solid #222;
-            font-family: var(--font-code);
-            font-size: 0.9rem;
-            color: #0f0;
-        }
-        .tech-specs li { list-style: none; margin-bottom: 8px; border-bottom: 1px dashed #333; padding-bottom: 8px; }
-        .tech-specs li:last-child { border: none; margin: 0; padding: 0; }
-        .tech-specs span { color: #fff; float: left; }
-
-    </style>
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero-content { padding: 0 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+    .stats-bar { padding: 20px; }
+  }
+</style>
 </head>
-<body data-elementor-device-mode="desktop">
+<body>
 
-    <header class="ls-header-wrapper" id="master-header">
-        <div class="sys-top-bar">
-            <div class="sys-nodes">
-                <div class="node-status"><div class="indicator"></div> HYBRID KERNEL: SECURE</div>
-                <div class="node-status"><div class="indicator"></div> PROJECT LON: AUTOMATING</div>
-            </div>
-            <div class="sys-auth">ACCESS LEVEL: ROOT ARCHITECT</div>
-        </div>
-        
-        <nav class="main-nav-container">
-            <div class="brand-matrix">
-                <div class="brand-name">LAITH <span>SALEH</span></div>
-                <div class="brand-sub">SYS_ENG // JORDAN_HQ</div>
-            </div>
-            <ul class="heavy-menu">
-                <li><a href="#core">Core Architecture</a></li>
-                <li><a href="#deployments">Deployments</a></li>
-                <li><a href="#metrics">System Metrics</a></li>
-                <li><a href="#contact" style="color: var(--gc-blood);">Initiate Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">LAITH<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+</nav>
 
-    <main>
-        <section class="hero-complex" id="core">
-            <div class="hero-layer-bg"></div>
-            <div class="hero-layer-overlay"></div>
-            <div class="hero-grid-pattern"></div>
-            
-            <div class="hero-content-wrapper">
-                <div class="system-badge">[INITIATING 10X PROTOCOL]</div>
-                <h1 class="hero-mega-title">ENGINEERED TO <br><span>DOMINATE</span></h1>
-                <p class="hero-dense-text">
-                    الأنظمة العظيمة لا تُبنى بالصدفة. إنها تتطلب المتانة الهندسية الكلاسيكية الممزوجة بالأداء الهجومي الكاسح للتقنيات الحديثة. نحن نبني البنية التحتية التي لا تقهر.
-                </p>
-                <div class="action-cluster">
-                    <a href="#" class="btn-heavy btn-primary">Deploy Architecture</a>
-                    <a href="#" class="btn-heavy btn-ghost">Analyze Codebase</a>
-                </div>
-            </div>
-        </section>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">LAITH</div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <div class="hero-tag">CIS Student &amp; Tech Visionary</div>
+    <div class="hero-name">LAITH<br><span class="accent">SALEH</span></div>
+    <div class="hero-title">Computer Information Systems</div>
+    <p class="hero-sub">
+      Building tomorrow's technology today. I'm a passionate CIS student focused on software development, networking, and real-world solutions that create impact.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#projects">View My Work</a>
+      <a class="btn-outline" href="#about">About Me</a>
+    </div>
+  </div>
+</section>
 
-        <section class="metrics-ribbon" id="metrics">
-            <div class="metric-block">
-                <div class="m-value">100%</div>
-                <div class="m-label">Automation Efficiency</div>
-            </div>
-            <div class="metric-block">
-                <div class="m-value">0.0</div>
-                <div class="m-label">Human Intervention Required</div>
-            </div>
-            <div class="metric-block">
-                <div class="m-value">∞</div>
-                <div class="m-label">Scalability Limits</div>
-            </div>
-        </section>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">CIS</div>
+    <div class="stat-label">Major</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">Projects Built</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5+</div>
+    <div class="stat-label">Tech Skills</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Committed</div>
+  </div>
+</div>
 
-        <section class="architecture-section" id="deployments">
-            <div class="section-header">
-                <h2>HEAVY-DUTY <span>SYSTEMS</span></h2>
-                <p>RAW POWER. REFINED LOGIC. ABSOLUTE CONTROL.</p>
-            </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo-placeholder">
+        <div class="about-photo-corner"></div>
+        <span>YOUR PHOTO HERE</span>
+        <div class="about-photo-label">Laith Saleh — CIS Student</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">About Me</div>
+      <h2 class="section-title">DRIVEN BY<br><span style="color:var(--red)">TECHNOLOGY</span></h2>
+      <div class="divider"></div>
+      <p>
+        My name is <strong>Laith Saleh</strong>, a dedicated Computer Information Systems student with a relentless drive to master technology and use it to solve real problems.
+      </p>
+      <p>
+        I believe in <strong>constant growth</strong> — every project, every challenge, and every line of code makes me a better developer and a sharper thinker. I don't just study IT; I live it.
+      </p>
+      <p>
+        My mission is to graduate, build impactful software, and one day lead tech teams that push the boundaries of what's possible.
+      </p>
+      <div class="about-skills">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">HTML / CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Networking</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Problem Solving</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="deep-grid">
-                
-                <article class="complex-card" data-project-id="lon-01" data-status="active">
-                    <span class="card-meta">DATA_STREAM // PYTHON_AUTOMATION</span>
-                    <h3>Project <span>LON</span></h3>
-                    <p>
-                        شبكة ميديا رقمية مؤتمتة بالكامل. مصممة لتعمل كآلة عالية الأداء، تولد وتدير المحتوى بفاعلية ساحقة عبر سكربتات Python وسير عمل GitHub Actions. لا توجد أعذار، فقط تنفيذ آلي مستمر.
-                    </p>
-                    <ul class="tech-specs">
-                        <li>[RUNTIME] <span>24/7 Uninterrupted</span></li>
-                        <li>[CORE] <span>Python Automation Engine</span></li>
-                        <li>[DEPLOY] <span>GitHub Actions CI/CD</span></li>
-                    </ul>
-                </article>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">What I Do</div>
+  <h2 class="section-title">CORE<br><span style="color:var(--red)">EXPERTISE</span></h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-num">01</div>
+      <h3>Software Development</h3>
+      <p>Writing clean, efficient code in Python, Java, and web technologies. Building real applications from scratch.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">02</div>
+      <h3>Networking & Security</h3>
+      <p>Understanding how networks operate, securing systems, and implementing infrastructure solutions.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">03</div>
+      <h3>Web Development</h3>
+      <p>Designing and developing responsive, modern websites with HTML, CSS, and JavaScript.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">04</div>
+      <h3>Database Management</h3>
+      <p>Designing, querying, and managing relational databases using SQL to power data-driven applications.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">05</div>
+      <h3>Systems Analysis</h3>
+      <p>Evaluating technical systems, identifying inefficiencies, and architecting smarter solutions.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">06</div>
+      <h3>Problem Solving</h3>
+      <p>Breaking down complex challenges into actionable steps and delivering results under pressure.</p>
+    </div>
+  </div>
+</section>
 
-                <article class="complex-card" data-project-id="ker-02" data-status="development">
-                    <span class="card-meta">OS_LEVEL // AI_INTEGRATION</span>
-                    <h3>Hybrid <span>Kernel</span> OS</h3>
-                    <p>
-                        بناء نظام تشغيل من الصفر يتخطى المعماريات التقليدية. دمج أصيل للذكاء الاصطناعي داخل نواة هجينة، يوفر استقراراً أسطورياً (كالمحركات العريقة) وسرعة استجابة هائلة تنافس أحدث الأنظمة.
-                    </p>
-                    <ul class="tech-specs">
-                        <li>[ARCHITECTURE] <span>Custom Hybrid Kernel</span></li>
-                        <li>[INTEGRATION] <span>Native AI Algorithms</span></li>
-                        <li>[MEMORY_MGT] <span>Predictive Allocation</span></li>
-                    </ul>
-                </article>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag">Portfolio</div>
+  <h2 class="section-title">MY<br><span style="color:var(--red)">PROJECTS</span></h2>
+  <div class="divider"></div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-badge">Web Development</div>
+      <h3>Personal Portfolio Website</h3>
+      <p>A full personal branding site built from scratch showcasing skills, projects, and professional goals.</p>
+      <div class="project-tech">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-badge">Software Development</div>
+      <h3>Student Management System</h3>
+      <p>A database-driven application to manage student records, grades, and course assignments.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">OOP</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-badge">Networking</div>
+      <h3>Network Topology Design</h3>
+      <p>Designed and simulated a secure enterprise network with proper subnetting and security protocols.</p>
+      <div class="project-tech">
+        <span class="tech-tag">Cisco Packet Tracer</span>
+        <span class="tech-tag">TCP/IP</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-badge">Coming Soon</div>
+      <h3>Your Next Big Project</h3>
+      <p>Currently in development — a new software solution that demonstrates advanced CIS skills and real-world value.</p>
+      <div class="project-tech">
+        <span class="tech-tag">TBD</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-            </div>
-        </section>
-    </main>
+<!-- GOALS -->
+<section id="goals">
+  <div class="section-tag">Vision</div>
+  <h2 class="section-title">MY<br><span style="color:var(--red)">GOALS</span></h2>
+  <div class="divider"></div>
+  <div class="goals-list">
+    <div class="goal-item">
+      <div class="goal-num">01</div>
+      <div class="goal-content">
+        <h3>Graduate with Excellence</h3>
+        <p>Complete my CIS degree with honors, mastering every domain of computer information systems and graduating with a strong academic record.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">02</div>
+      <div class="goal-content">
+        <h3>Land a Top Tech Role</h3>
+        <p>Secure a position as a software developer, IT specialist, or systems analyst at a leading company where I can create real impact from day one.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">03</div>
+      <div class="goal-content">
+        <h3>Build Something That Matters</h3>
+        <p>Launch a product or platform that solves a genuine problem — something that thousands of people use and benefit from every day.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">04</div>
+      <div class="goal-content">
+        <h3>Lead a Tech Team</h3>
+        <p>Grow into a leadership role — managing developers, driving architecture decisions, and mentoring the next generation of CIS students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title" style="color:#fff">LET'S<br>CONNECT</h2>
+  <p>I'm open to internships, collaborations, and new opportunities. If you're looking for a motivated CIS student who gets things done — reach out.</p>
+  <div class="contact-buttons">
+    <a class="btn-white" href="mailto:laith@email.com">Email Me</a>
+    <a class="btn-white-outline" href="https://linkedin.com" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LAITH <span>SALEH</span></div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#goals">Goals</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Laith Saleh. All Rights Reserved.</div>
+</footer>
 
 </body>
 </html>
