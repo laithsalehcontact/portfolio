@@ -3,49 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المعرض الشخصي | طالب تقنية معلومات</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ليث صالح | Software & Systems Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg-color: #030712;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
+            animation: bgPulse 10s infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* تأثير الكتابة */
+        .hero { text-align: center; margin-bottom: 5rem; }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(to left, #fff, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .typewriter {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 3s steps(40, end), blink .75s step-end infinite;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--primary) } }
+
+        /* البطاقات الزجاجية التفاعلية */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-card:hover::before { opacity: 1; }
+
+        .glass-card > * { position: relative; z-index: 2; }
+
+        .glass-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+        }
+
+        .glass-card p {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="background-decor oxide-1"></div>
-    <div class="background-decor oxide-2"></div>
-
     <div class="container">
-        <header class="glass-card header-section">
-            <h1>مرحباً، أنا مطور برمجيات وطالب CIS</h1>
-            <p>شغوف ببناء الأنظمة الذكية، هندسة البرمجيات، وتطوير الحلول البرمجية المبتكرة.</p>
+        <header class="hero">
+            <h1>ليث صالح</h1>
+            <div class="typewriter">Computer Information Systems | Systems Developer</div>
         </header>
 
-        <main class="projects-grid">
+        <div class="projects-grid" id="cards-container">
             
-            <section class="glass-card project-card">
-                <h3>تطوير الأنظمة المتقدمة</h3>
-                <p>مشروع بحثي وتطويري لبناء نظام تشغيل مخصص يعتمد على النواة الهجينة (Hybrid Kernel) مع دمج تقنيات الذكاء الاصطناعي بشكل أصيل في النظام.</p>
-                <span class="tech-tag">C++</span>
-                <span class="tech-tag">Kernel</span>
-                <span class="tech-tag">AI</span>
-            </section>
-
-            <section class="glass-card project-card">
-                <h3>أتمتة الشبكات الرقمية</h3>
-                <p>تطوير نظام أتمتة متكامل لإدارة ونشر المحتوى الرقمي عبر شبكات ميديا ذكية باستخدام لغة Python وأدوات GitHub Actions وسير العمل الآلي.</p>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">GitHub Actions</span>
-                <span class="tech-tag">Automation</span>
-            </section>
-
-        </main>
-
-        <footer class="glass-card footer-section">
-            <p>تواصل معي عبر:</p>
-            <div class="links">
-                <a href="#" target="_blank">GitHub</a>
-                <a href="#" target="_blank">LinkedIn</a>
-                <a href="mailto:your-email@example.com">البريد الإلكتروني</a>
+            <div class="glass-card">
+                <h3>Project LON | أتمتة الشبكات الرقمية</h3>
+                <p>تطوير شبكة ميديا رقمية مؤتمتة بالكامل، تعتمد على برمجيات مخصصة لإدارة وتوليد المحتوى بشكل آلي عبر مسارات عمل برمجية متقدمة.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">Automation</span>
+                </div>
             </div>
-        </footer>
+
+            <div class="glass-card">
+                <h3>Custom Hybrid Kernel OS</h3>
+                <p>مشروع بناء نظام تشغيل من الصفر يعتمد على معمارية النواة الهجينة، مع التركيز على دمج تقنيات الذكاء الاصطناعي بشكل أصيل ضمن نواة النظام.</p>
+                <div class="tags">
+                    <span class="tag">OS Development</span>
+                    <span class="tag">AI Integration</span>
+                    <span class="tag">Architecture</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>Advanced Data Structures</h3>
+                <p>تطبيق وتحليل هيكليات البيانات المعقدة والخوارزميات لبناء برمجيات عالية الأداء وقابلة للتوسع في بيئات العمل الحقيقية.</p>
+                <div class="tags">
+                    <span class="tag">Algorithms</span>
+                    <span class="tag">Problem Solving</span>
+                    <span class="tag">C++</span>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <script>
+        /* كود الجافاسكربت لعمل تأثير الإضاءة الذي يتبع مؤشر الماوس */
+        document.getElementById("cards-container").onmousemove = e => {
+            for(const card of document.getElementsByClassName("glass-card")) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
+    </script>
 </body>
 </html>
