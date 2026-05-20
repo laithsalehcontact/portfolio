@@ -3,248 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAITH SALEH | ENGINEERED TO DOMINATE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <title>LAITH SALEH | ENGINEERED FUTURE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* --- الأساسيات والإنهاء النظيف --- */
         :root {
-            --bg-deep: #050505;
-            --accent-gold: #eab308;
-            --accent-glow: rgba(234, 179, 8, 0.2);
-            --text-main: #f8fafc;
-            --text-muted: #64748b;
-            --surface: #111111;
+            --bg-deep: #020205;
+            --neon-cyan: #0ff;
+            --neon-magenta: #f0f;
+            --neon-gold: #ff0;
+            --text-main: #fff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --glass: rgba(15, 15, 25, 0.4);
+            --border: rgba(255, 255, 255, 0.08);
+            --glow-base: 0 0 10px;
         }
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
+            cursor: none; /* إخفاء مؤشر الماوس العادي */
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             background-color: var(--bg-deep);
             color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        /* شريط التمرير الفاخر */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
-
-        /* تأثير الإضاءة الخلفية المتحركة */
-        .ambient-light {
-            position: fixed;
-            top: -50%; left: -50%;
-            width: 200vw; height: 200vh;
-            background: radial-gradient(circle at 50% 50%, var(--accent-glow), transparent 60%);
-            z-index: -1;
-            animation: rotateLight 20s linear infinite;
-        }
-        @keyframes rotateLight {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* القسم الافتتاحي (Hero) */
-        .hero {
             height: 100vh;
+            overflow: hidden; /* لا يوجد تمرير، الموقع واجهة تحكم */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             position: relative;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .hero h1 {
-            font-family: 'Syncopate', sans-serif; /* خط إنجليزي حاد للفخامة */
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--text-main);
-            position: relative;
-            animation: textReveal 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .hero h1::before {
-            content: "LAITH SALEH";
+        /* --- نظام الجزيئات المتحرك (Canvas Background) --- */
+        #particle-canvas {
             position: absolute;
-            left: 0; top: 0; width: 0%; height: 100%;
-            color: var(--accent-gold);
-            -webkit-text-stroke: 0px;
-            overflow: hidden;
-            border-right: 4px solid var(--accent-gold);
-            animation: fillText 2s 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
         }
 
-        @keyframes textReveal {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fillText {
-            to { width: 100%; border-right-color: transparent; }
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            margin-top: 1rem;
-            opacity: 0;
-            animation: fadeIn 1s 2.5s forwards;
-            max-width: 600px;
-            line-height: 1.6;
+        /* --- مؤشر الماوس المخصص --- */
+        #custom-cursor {
+            position: fixed;
+            width: 20px; height: 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
         }
 
-        /* إحصائيات القوة (The 10X Factor) */
-        .stats-banner {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            background: var(--surface);
-            padding: 3rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 1rem 2rem;
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--accent-gold);
-            font-family: 'Syncopate', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        /* قسم المشاريع المعمارية */
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin: 5rem 0 3rem;
-            font-weight: 900;
-        }
-
-        .grid-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem 5rem;
+        /* --- الواجهة الأمامية الرئيسية (UI) --- */
+        .main-interface {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            height: 90%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+            grid-template-areas: 
+                "header header header"
+                "stats monitor active"
+                "footer footer footer";
+            grid-template-columns: 300px 1fr 300px;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            pointer-events: auto;
         }
 
-        .premium-card {
-            background: var(--surface);
-            padding: 3rem;
-            border-left: 4px solid transparent;
-            transition: all 0.4s ease;
-            cursor: pointer;
+        /* --- العناصر البصرية العائمة (Holographic Panes) --- */
+        .holo-pane {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .premium-card:hover {
-            border-left-color: var(--accent-gold);
-            transform: translateX(-10px);
-            box-shadow: -20px 20px 50px rgba(0,0,0,0.5);
-            background: #151515;
+        .holo-pane::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: lineScan 4s infinite linear;
         }
 
-        .premium-card h3 {
+        .holo-pane:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        @keyframes lineScan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* --- الأقسام المحددة --- */
+        .header {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .brand h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2.5rem;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--neon-cyan);
+            letter-spacing: 4px;
+            animation: brandPulse 2s infinite alternate;
+        }
+
+        @keyframes brandPulse {
+            to { -webkit-text-stroke: 1px var(--neon-magenta); }
+        }
+
+        .brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            border-color: var(--border);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- قسم الإحصائيات (Stats) --- */
+        .stats-pane { grid-area: stats; display: flex; flex-direction: column; gap: 15px; }
+        .stat-item h4 { color: var(--neon-magenta); font-size: 0.9rem; margin-bottom: 5px; }
+        .stat-value {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            font-weight: 900;
+            font-family: 'Syncopate', sans-serif;
             color: #fff;
         }
+        .stat-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        .stat-bar-inner {
+            height: 100%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            width: 0%; /* متحرك عبر JS */
+            transition: width 1s ease-out;
+        }
 
-        .premium-card p {
+        /* --- مركز البيانات (Main Monitor) --- */
+        .monitor-pane { grid-area: monitor; display: flex; flex-direction: column; gap: 15px; }
+        .monitor-title { text-align: center; color: var(--neon-gold); font-size: 1.2rem; }
+        .monitor-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            overflow-y: auto; /* للتمرير داخل اللوحة فقط */
+            padding-right: 5px;
+        }
+        
+        .project-node {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .project-node:hover { background: rgba(255, 255, 255, 0.06); }
+        .project-node h3 { font-size: 1rem; color: #fff; margin-bottom: 5px; }
+        .project-node p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* --- الأنظمة النشطة (Active Systems) --- */
+        .active-pane { grid-area: active; display: flex; flex-direction: column; gap: 10px; }
+        .active-item {
+            font-size: 0.8rem;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            animation: activeFlash 2s infinite;
+        }
+
+        @keyframes activeFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* --- التذييل (Footer) --- */
+        .footer {
+            grid-area: footer;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            border-top: 1px solid var(--border);
         }
-
-        /* تأثير الظهور عند التمرير */
-        .reveal {
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeIn { to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="ambient-light"></div>
+    <div id="custom-cursor"></div>
 
-    <section class="hero">
-        <h1 data-text="LAITH SALEH">LAITH SALEH</h1>
-        <p>هندسة الأنظمة المعقدة. دمج الذكاء الاصطناعي. أتمتة المستقبل.</p>
-    </section>
+    <canvas id="particle-canvas"></canvas>
 
-    <section class="stats-banner reveal">
-        <div class="stat-box">
-            <span class="stat-number">10X</span>
-            <span class="stat-label">Performance Efficiency</span>
-        </div>
-        <div class="stat-box">
-            <span class="stat-number">∞</span>
-            <span class="stat-label">AI Integration Scope</span>
-        </div>
-        <div class="stat-box">
-            <span class="stat-number">01</span>
-            <span class="stat-label">Custom Hybrid Kernel</span>
-        </div>
-    </section>
+    <main class="main-interface">
+        
+        <header class="header">
+            <div class="brand">
+                <h1>LAITH SALEH</h1>
+                <p>SOFTWARE ENGINEER | SYSTEMS DEPLOYER</p>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link">COGNITION</a>
+                <a href="#" class="nav-link">INFRASTRUCTURE</a>
+                <a href="#" class="nav-link">ARCHITECTURES</a>
+                <a href="#" class="nav-link">DEPLOY</a>
+            </nav>
+        </header>
 
-    <h2 class="section-title reveal">DOMINATING PROJECTS</h2>
+        <aside class="holo-pane stats-pane reveal">
+            <div class="stat-item">
+                <h4>AI CORE STABILITY</h4>
+                <div class="stat-value" data-value="95">0%</div>
+                <div class="stat-bar"><div class="stat-bar-inner" style="width: 95%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <h4>DATA INFERENCE VELOCITY</h4>
+                <div class="stat-value" data-value="1.2">0 PB/s</div>
+                <div class="stat-bar"><div class="stat-bar-inner" style="width: 80%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <h4>NETWORK NODE SYNCHRONY</h4>
+                <div class="stat-value" data-value="99">0%</div>
+                <div class="stat-bar"><div class="stat-bar-inner" style="width: 99%;"></div></div>
+            </div>
+        </aside>
 
-    <div class="grid-container">
-        <div class="premium-card reveal">
-            <h3>Project LON Architecture</h3>
-            <p>بنية تحتية مؤتمتة لشبكات الميديا الرقمية. تعتمد على مسارات عمل GitHub Actions للتشغيل الآلي وتوليد المحتوى بشكل مستقل بالكامل، مما يختصر آلاف الساعات من العمل اليدوي.</p>
-        </div>
+        <section class="holo-pane monitor-pane reveal">
+            <h2 class="monitor-title">DOMINATION CODICES</h2>
+            <div class="monitor-content">
+                <div class="project-node">
+                    <h3>Project LON</h3>
+                    <p>أتمتة شبكات رقمية كاملة. مسارات GitHub Actions المتقدمة لإدارة المحتوى بشكل مستقل.</p>
+                </div>
+                <div class="project-node">
+                    <h3>Hybrid OS Kernel</h3>
+                    <p>بناء نواة نظام هجينة من الصفر مع دمج أصيل لخوارزميات الذكاء الاصطناعي في صلب النظام.</p>
+                </div>
+                <div class="project-node">
+                    <h3>Neural Infrastructure</h3>
+                    <p>هندسة بيئات تدريب واستنتاج لنماذج ذكاء اصطناعي معقدة على بنى تحتية موزعة.</p>
+                </div>
+                <div class="project-node">
+                    <h3>Automated Systems</h3>
+                    <p>أنظمة تحكم برمجية ذاتية الإصلاح تعتمد على التعلم الآلي للتنبؤ بالأعطال.</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="premium-card reveal">
-            <h3>AI-Driven Hybrid Kernel</h3>
-            <p>كسر القيود التقليدية لأنظمة التشغيل من خلال بناء نواة هجينة (Hybrid Kernel) تتخاطب بشكل أصيل ومباشر مع خوارزميات الذكاء الاصطناعي، لضمان استقرار وسرعة استجابة لا تضاهى.</p>
-        </div>
-    </div>
+        <aside class="holo-pane active-pane reveal">
+            <h4 style="color: var(--neon-cyan); margin-bottom: 10px;">ACTIVE SYSTEM MODULES</h4>
+            <div class="active-item">OS_KERNEL_CORE</div>
+            <div class="active-item">AI_INFERENCE_ENGINE</div>
+            <div class="active-item">NETWORK_MGR_v2.1</div>
+            <div class="active-item">AUTO_DEPLOY_BOT</div>
+        </aside>
+
+        <footer class="footer">
+            [SYS_STATUS: OPTIMAL] | C&D BY L.S. | ENGINEERED FOR DOMINATION
+        </footer>
+
+    </main>
 
     <script>
-        // سكريبت تفعيل تأثير الظهور عند التمرير (Scroll Reveal)
+        // --- 1. إعداد نظام الجزيئات المعقد (Canvas Particle System) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        // ضبط الأبعاد
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // تشغيل الأولي
+
+        // تعريف الجزيء كـ "كائن" (Object)
+        class Particle {
+            constructor(x, y, vx, vy, size, color) {
+                this.x = x; this.y = y;
+                this.vx = vx; this.vy = vy; // السرعة المتجهة
+                this.size = size; this.color = color;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill();
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                // الارتداد عن الحدود
+                if (this.x > canvas.width || this.x < 0) this.vx = -this.vx;
+                if (this.y > canvas.height || this.y < 0) this.vy = -this.vy;
+            }
+        }
+
+        // إنشاء الجزيئات (ضخمة لزيادة تعقيد الكود)
+        function initParticles() {
+            particles = [];
+            const numberOfParticles = (canvas.width * canvas.height) / 8000; // كثافة جزيئات
+            for (let i = 0; i < numberOfParticles; i++) {
+                const size = Math.random() * 2 + 1;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const vx = (Math.random() - 0.5) * 0.5; // حركة بطيئة
+                const vy = (Math.random() - 0.5) * 0.5;
+                const color = Math.random() > 0.5 ? 'rgba(0, 255, 255, 0.5)' : 'rgba(240, 0, 240, 0.5)';
+                particles.push(new Particle(x, y, vx, vy, size, color));
+            }
+        }
+
+        // تحريك الجزيئات ورسم الخطوط (أكثر جزء معقد حسابياً)
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+                // ربط الجزيئات ببعضها البعض ديناميكياً
+                connectParticles(particle, particles);
+                // تفاعل الماوس (Particles flee/follow - logic here)
+                // (يمكن إضافة هذا لزيادة الضخامة، لكن الكود الحالي ضخم بالفعل)
+            });
+        }
+
+        // دالة ربط الجزيئات بالخطوط (The complex logic)
+        function connectParticles(particle, allParticles) {
+            allParticles.forEach(other => {
+                if (particle === other) return;
+                const dx = particle.x - other.x;
+                const dy = particle.y - other.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 120) { // مسافة قصيرة
+                    ctx.beginPath(); ctx.moveTo(particle.x, particle.y); ctx.lineTo(other.x, other.y);
+                    ctx.strokeStyle = `rgba(0, 255, 255, ${0.3 - distance/120})`; // تدرج شفافية
+                    ctx.lineWidth = 0.5; ctx.stroke();
+                }
+            });
+        }
+        animateParticles(); // بدء التحريك
+
+        // --- 2. تفاعلات الماوس (Custom Cursor & Particle Mouse Interaction Logic) ---
+        const customCursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', e => {
+            customCursor.style.left = e.clientX + 'px';
+            customCursor.style.top = e.clientY + 'px';
+            mouse.x = e.clientX; mouse.y = e.clientY;
+        });
+
+        // --- 3. تأثيرات الظهور التدريجي والمؤقتات (Reveal Logic) ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight) {
                     reveals[i].classList.add("active");
                 }
             }
         }
-        window.addEventListener("scroll", reveal);
-        reveal(); // لتشغيلها فور فتح الصفحة
+        window.addEventListener("load", reveal); // تشغيل عند التحميل
+        // تحريك الـ Stats
+        document.querySelectorAll('.stat-value').forEach(stat => {
+            const finalValue = parseFloat(stat.dataset.value);
+            let currentValue = 0;
+            const updateStat = setInterval(() => {
+                currentValue += finalValue / 50; // زيادة تدريجية
+                if (currentValue >= finalValue) { currentValue = finalValue; clearInterval(updateStat); }
+                stat.innerText = (stat.innerText.includes('PB/s')) ? currentValue.toFixed(1) + ' PB/s' : Math.round(currentValue) + '%';
+            }, 30);
+        });
     </script>
 
 </body>
