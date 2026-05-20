@@ -3,415 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAITH SALEH | ENGINEERED FUTURE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <title>ليث صالح | هندسة الأنظمة المتقدمة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- الأساسيات والإنهاء النظيف --- */
+        /* --- الأساسيات --- */
         :root {
-            --bg-deep: #020205;
-            --neon-cyan: #0ff;
-            --neon-magenta: #f0f;
-            --neon-gold: #ff0;
-            --text-main: #fff;
-            --text-muted: rgba(255, 255, 255, 0.6);
-            --glass: rgba(15, 15, 25, 0.4);
-            --border: rgba(255, 255, 255, 0.08);
-            --glow-base: 0 0 10px;
+            --bg-dark: #0a0a0c;
+            --text-main: #f1f5f9;
+            --text-muted: #8492a6;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.04);
+            --accent: #e2e8f0;
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            cursor: none; /* إخفاء مؤشر الماوس العادي */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-deep);
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            height: 100vh;
-            overflow: hidden; /* لا يوجد تمرير، الموقع واجهة تحكم */
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            position: relative;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
         }
 
-        /* --- نظام الجزيئات المتحرك (Canvas Background) --- */
-        #particle-canvas {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-        }
+        /* --- شريط التمرير (Scrollbar) --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
 
-        /* --- مؤشر الماوس المخصص --- */
-        #custom-cursor {
-            position: fixed;
-            width: 20px; height: 20px;
-            border: 2px solid var(--neon-cyan);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            box-shadow: 0 0 15px var(--neon-cyan);
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
-        }
-
-        /* --- الواجهة الأمامية الرئيسية (UI) --- */
-        .main-interface {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            height: 90%;
-            display: grid;
-            grid-template-areas: 
-                "header header header"
-                "stats monitor active"
-                "footer footer footer";
-            grid-template-columns: 300px 1fr 300px;
-            grid-template-rows: auto 1fr auto;
-            gap: 20px;
-            pointer-events: auto;
-        }
-
-        /* --- العناصر البصرية العائمة (Holographic Panes) --- */
-        .holo-pane {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .holo-pane::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            box-shadow: 0 0 10px var(--neon-cyan);
-            animation: lineScan 4s infinite linear;
-        }
-
-        .holo-pane:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-        }
-
-        @keyframes lineScan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* --- الأقسام المحددة --- */
+        /* --- الترويسة (Header) --- */
         .header {
-            grid-area: header;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .brand h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 2.5rem;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--neon-cyan);
-            letter-spacing: 4px;
-            animation: brandPulse 2s infinite alternate;
-        }
-
-        @keyframes brandPulse {
-            to { -webkit-text-stroke: 1px var(--neon-magenta); }
-        }
-
-        .brand p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .nav-links { display: flex; gap: 20px; }
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            padding: 5px 10px;
-            border: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .nav-link:hover {
-            color: #fff;
-            border-color: var(--border);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- قسم الإحصائيات (Stats) --- */
-        .stats-pane { grid-area: stats; display: flex; flex-direction: column; gap: 15px; }
-        .stat-item h4 { color: var(--neon-magenta); font-size: 0.9rem; margin-bottom: 5px; }
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 900;
-            font-family: 'Syncopate', sans-serif;
-            color: #fff;
-        }
-        .stat-bar {
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            position: relative;
-        }
-        .stat-bar-inner {
-            height: 100%;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-            width: 0%; /* متحرك عبر JS */
-            transition: width 1s ease-out;
-        }
-
-        /* --- مركز البيانات (Main Monitor) --- */
-        .monitor-pane { grid-area: monitor; display: flex; flex-direction: column; gap: 15px; }
-        .monitor-title { text-align: center; color: var(--neon-gold); font-size: 1.2rem; }
-        .monitor-content {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            overflow-y: auto; /* للتمرير داخل اللوحة فقط */
-            padding-right: 5px;
-        }
-        
-        .project-node {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 15px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        .project-node:hover { background: rgba(255, 255, 255, 0.06); }
-        .project-node h3 { font-size: 1rem; color: #fff; margin-bottom: 5px; }
-        .project-node p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
-
-        /* --- الأنظمة النشطة (Active Systems) --- */
-        .active-pane { grid-area: active; display: flex; flex-direction: column; gap: 10px; }
-        .active-item {
-            font-size: 0.8rem;
-            color: #fff;
-            padding: 8px;
-            border-radius: 4px;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            animation: activeFlash 2s infinite;
-        }
-
-        @keyframes activeFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        /* --- التذييل (Footer) --- */
-        .footer {
-            grid-area: footer;
+            width: 100%;
+            max-width: 1200px;
+            padding: 15vh 20px 10vh;
             text-align: center;
-            padding: 10px 0;
-            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .header p {
+            font-size: 1.2rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- شبكة المشاريع (Grid) --- */
+        .projects-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px 10vh;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- بطاقات الزجاج الفاخرة (Premium Glass Cards) --- */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* تأثير الإضاءة الداخلية الخافتة */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .card-content {
+            transform: translateZ(40px); /* رفع المحتوى للأمام لإبراز الـ 3D */
+            pointer-events: none;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-pill {
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #a1a1aa;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        /* للأنيميشن عند التمرير */
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
+    <header class="header">
+        <h1>ليث صالح</h1>
+        <p>هندسة أنظمة متقدمة، تطوير معماريات برمجية عالية الأداء، ودمج تقنيات الذكاء الاصطناعي لبناء حلول رقمية مؤتمتة.</p>
+    </header>
 
-    <canvas id="particle-canvas"></canvas>
-
-    <main class="main-interface">
+    <main class="projects-container" id="projects">
         
-        <header class="header">
-            <div class="brand">
-                <h1>LAITH SALEH</h1>
-                <p>SOFTWARE ENGINEER | SYSTEMS DEPLOYER</p>
-            </div>
-            <nav class="nav-links">
-                <a href="#" class="nav-link">COGNITION</a>
-                <a href="#" class="nav-link">INFRASTRUCTURE</a>
-                <a href="#" class="nav-link">ARCHITECTURES</a>
-                <a href="#" class="nav-link">DEPLOY</a>
-            </nav>
-        </header>
-
-        <aside class="holo-pane stats-pane reveal">
-            <div class="stat-item">
-                <h4>AI CORE STABILITY</h4>
-                <div class="stat-value" data-value="95">0%</div>
-                <div class="stat-bar"><div class="stat-bar-inner" style="width: 95%;"></div></div>
-            </div>
-            <div class="stat-item">
-                <h4>DATA INFERENCE VELOCITY</h4>
-                <div class="stat-value" data-value="1.2">0 PB/s</div>
-                <div class="stat-bar"><div class="stat-bar-inner" style="width: 80%;"></div></div>
-            </div>
-            <div class="stat-item">
-                <h4>NETWORK NODE SYNCHRONY</h4>
-                <div class="stat-value" data-value="99">0%</div>
-                <div class="stat-bar"><div class="stat-bar-inner" style="width: 99%;"></div></div>
-            </div>
-        </aside>
-
-        <section class="holo-pane monitor-pane reveal">
-            <h2 class="monitor-title">DOMINATION CODICES</h2>
-            <div class="monitor-content">
-                <div class="project-node">
-                    <h3>Project LON</h3>
-                    <p>أتمتة شبكات رقمية كاملة. مسارات GitHub Actions المتقدمة لإدارة المحتوى بشكل مستقل.</p>
-                </div>
-                <div class="project-node">
-                    <h3>Hybrid OS Kernel</h3>
-                    <p>بناء نواة نظام هجينة من الصفر مع دمج أصيل لخوارزميات الذكاء الاصطناعي في صلب النظام.</p>
-                </div>
-                <div class="project-node">
-                    <h3>Neural Infrastructure</h3>
-                    <p>هندسة بيئات تدريب واستنتاج لنماذج ذكاء اصطناعي معقدة على بنى تحتية موزعة.</p>
-                </div>
-                <div class="project-node">
-                    <h3>Automated Systems</h3>
-                    <p>أنظمة تحكم برمجية ذاتية الإصلاح تعتمد على التعلم الآلي للتنبؤ بالأعطال.</p>
+        <article class="card">
+            <div class="card-content">
+                <h3>Hybrid Kernel OS</h3>
+                <p>تطوير وبناء نظام تشغيل من الصفر يعتمد على معمارية النواة الهجينة، مع دمج أصيل لخوارزميات الذكاء الاصطناعي لتحسين إدارة الموارد بشكل ذاتي.</p>
+                <div class="tech-stack">
+                    <span class="tech-pill">OS Architecture</span>
+                    <span class="tech-pill">AI Integration</span>
+                    <span class="tech-pill">C++</span>
                 </div>
             </div>
-        </section>
+        </article>
 
-        <aside class="holo-pane active-pane reveal">
-            <h4 style="color: var(--neon-cyan); margin-bottom: 10px;">ACTIVE SYSTEM MODULES</h4>
-            <div class="active-item">OS_KERNEL_CORE</div>
-            <div class="active-item">AI_INFERENCE_ENGINE</div>
-            <div class="active-item">NETWORK_MGR_v2.1</div>
-            <div class="active-item">AUTO_DEPLOY_BOT</div>
-        </aside>
+        <article class="card">
+            <div class="card-content">
+                <h3>Project LON</h3>
+                <p>هندسة شبكة ميديا رقمية مؤتمتة بالكامل. تعتمد على سكريبتات متقدمة ومسارات عمل آليه لإدارة ونشر المحتوى دون تدخل بشري.</p>
+                <div class="tech-stack">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">GitHub Actions</span>
+                    <span class="tech-pill">Automation</span>
+                </div>
+            </div>
+        </article>
 
-        <footer class="footer">
-            [SYS_STATUS: OPTIMAL] | C&D BY L.S. | ENGINEERED FOR DOMINATION
-        </footer>
+        <article class="card">
+            <div class="card-content">
+                <h3>Advanced Data Structures</h3>
+                <p>تحليل وتطبيق هياكل البيانات المعقدة لبناء أنظمة برمجية قابلة للتوسع وتتحمل معالجة كميات ضخمة من البيانات بكفاءة عالية.</p>
+                <div class="tech-stack">
+                    <span class="tech-pill">Algorithms</span>
+                    <span class="tech-pill">Performance</span>
+                    <span class="tech-pill">System Design</span>
+                </div>
+            </div>
+        </article>
 
     </main>
 
     <script>
-        // --- 1. إعداد نظام الجزيئات المعقد (Canvas Particle System) ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
+        // 1. نظام الـ 3D Tilt Effect برمجياً بالكامل
+        const cards = document.querySelectorAll('.card');
 
-        // ضبط الأبعاد
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas(); // تشغيل الأولي
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // حساب مركز البطاقة
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // حساب زاوية الميلان بناءً على موقع الماوس (كلما ابتعد عن المركز زاد الميلان)
+                const rotateX = ((y - centerY) / centerY) * -8; // الحد الأقصى للميلان 8 درجات لفخامة أكثر
+                const rotateY = ((x - centerX) / centerX) * 8;
 
-        // تعريف الجزيء كـ "كائن" (Object)
-        class Particle {
-            constructor(x, y, vx, vy, size, color) {
-                this.x = x; this.y = y;
-                this.vx = vx; this.vy = vy; // السرعة المتجهة
-                this.size = size; this.color = color;
-            }
-            draw() {
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color; ctx.fill();
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                // الارتداد عن الحدود
-                if (this.x > canvas.width || this.x < 0) this.vx = -this.vx;
-                if (this.y > canvas.height || this.y < 0) this.vy = -this.vy;
-            }
-        }
-
-        // إنشاء الجزيئات (ضخمة لزيادة تعقيد الكود)
-        function initParticles() {
-            particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 8000; // كثافة جزيئات
-            for (let i = 0; i < numberOfParticles; i++) {
-                const size = Math.random() * 2 + 1;
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const vx = (Math.random() - 0.5) * 0.5; // حركة بطيئة
-                const vy = (Math.random() - 0.5) * 0.5;
-                const color = Math.random() > 0.5 ? 'rgba(0, 255, 255, 0.5)' : 'rgba(240, 0, 240, 0.5)';
-                particles.push(new Particle(x, y, vx, vy, size, color));
-            }
-        }
-
-        // تحريك الجزيئات ورسم الخطوط (أكثر جزء معقد حسابياً)
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-                // ربط الجزيئات ببعضها البعض ديناميكياً
-                connectParticles(particle, particles);
-                // تفاعل الماوس (Particles flee/follow - logic here)
-                // (يمكن إضافة هذا لزيادة الضخامة، لكن الكود الحالي ضخم بالفعل)
+                // تطبيق التحويل الفيزيائي
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transition = 'transform 0.1s ease-out'; // استجابة سريعة للماوس
             });
-        }
 
-        // دالة ربط الجزيئات بالخطوط (The complex logic)
-        function connectParticles(particle, allParticles) {
-            allParticles.forEach(other => {
-                if (particle === other) return;
-                const dx = particle.x - other.x;
-                const dy = particle.y - other.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) { // مسافة قصيرة
-                    ctx.beginPath(); ctx.moveTo(particle.x, particle.y); ctx.lineTo(other.x, other.y);
-                    ctx.strokeStyle = `rgba(0, 255, 255, ${0.3 - distance/120})`; // تدرج شفافية
-                    ctx.lineWidth = 0.5; ctx.stroke();
-                }
+            // إعادة البطاقة لوضعها الطبيعي بنعومة عند خروج الماوس
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)'; // عودة انسيابية جداً
             });
-        }
-        animateParticles(); // بدء التحريك
-
-        // --- 2. تفاعلات الماوس (Custom Cursor & Particle Mouse Interaction Logic) ---
-        const customCursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', e => {
-            customCursor.style.left = e.clientX + 'px';
-            customCursor.style.top = e.clientY + 'px';
-            mouse.x = e.clientX; mouse.y = e.clientY;
         });
 
-        // --- 3. تأثيرات الظهور التدريجي والمؤقتات (Reveal Logic) ---
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight) {
-                    reveals[i].classList.add("active");
+        // 2. نظام ظهور البطاقات بتسلسل عند التمرير (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // تأخير بسيط لكل بطاقة لتعمل كشلال
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 150);
+                    observer.unobserve(entry.target); // إيقاف المراقبة بعد الظهور
                 }
-            }
-        }
-        window.addEventListener("load", reveal); // تشغيل عند التحميل
-        // تحريك الـ Stats
-        document.querySelectorAll('.stat-value').forEach(stat => {
-            const finalValue = parseFloat(stat.dataset.value);
-            let currentValue = 0;
-            const updateStat = setInterval(() => {
-                currentValue += finalValue / 50; // زيادة تدريجية
-                if (currentValue >= finalValue) { currentValue = finalValue; clearInterval(updateStat); }
-                stat.innerText = (stat.innerText.includes('PB/s')) ? currentValue.toFixed(1) + ' PB/s' : Math.round(currentValue) + '%';
-            }, 30);
+            });
+        }, {
+            threshold: 0.1 // يبدأ الظهور عند رؤية 10% من البطاقة
+        });
+
+        cards.forEach(card => {
+            observer.observe(card);
         });
     </script>
-
 </body>
 </html>
