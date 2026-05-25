@@ -416,6 +416,84 @@ footer {
 .hero-buttons { animation:fadeUp .55s ease both .5s; }
 
 /* ── RESPONSIVE ── */
+/* ── AI CHAT WIDGET ── */
+#ai-bubble {
+  position:fixed; bottom:30px; right:30px; z-index:999;
+  background:rgba(13,13,16,0.75);
+  backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:14px 24px; border-radius:30px; cursor:pointer;
+  display:flex; align-items:center; gap:10px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5), 0 0 15px rgba(56,189,248,0.2);
+  transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+#ai-bubble:hover {
+  transform:translateY(-5px) scale(1.05);
+  border-color:#38bdf8;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6), 0 0 25px rgba(56,189,248,0.4);
+}
+#ai-bubble i { color:#38bdf8; font-size:18px; }
+#ai-bubble span {
+  font-family:'Barlow Condensed',sans-serif; font-size:14px;
+  font-weight:700; letter-spacing:1px; text-transform:uppercase;
+}
+#ai-chat-window {
+  position:fixed; bottom:100px; right:30px; width:380px; height:500px; z-index:999;
+  display:none; flex-direction:column; overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.6);
+  background:rgba(13,13,16,0.85);
+  backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+}
+.chat-header {
+  padding:20px; border-bottom:1px solid rgba(255,255,255,0.05);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.chat-header-info { display:flex; align-items:center; gap:12px; }
+.AI-glow { color:#38bdf8; font-size:20px; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+.chat-header h4 { font-family:'Outfit',sans-serif; font-size:16px; font-weight:600; }
+.chat-header p { font-size:11px; color:#666680; }
+.close-chat { background:none; border:none; color:#666680; font-size:22px; cursor:pointer; transition:color .2s; }
+.close-chat:hover { color:#fff; }
+.chat-body { flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:15px; }
+.chat-body::-webkit-scrollbar { width:4px; }
+.chat-body::-webkit-scrollbar-track { background:transparent; }
+.chat-body::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:4px; }
+.message { padding:12px 16px; border-radius:14px; font-size:14px; line-height:1.5; max-width:85%; font-family:'Outfit',sans-serif; }
+.ai-msg { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.05); align-self:flex-start; color:#f0f0f5; }
+.user-msg { background:#e8001d; align-self:flex-end; color:#fff; font-weight:500; }
+.typing-indicator { display:flex; gap:4px; align-items:center; padding:12px 16px; }
+.typing-indicator span { width:7px; height:7px; background:rgba(56,189,248,0.6); border-radius:50%; animation:typing-bounce 1.2s infinite; }
+.typing-indicator span:nth-child(2) { animation-delay:.2s; }
+.typing-indicator span:nth-child(3) { animation-delay:.4s; }
+@keyframes typing-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+.chat-suggestions { padding:0 20px 10px; display:flex; gap:8px; flex-wrap:wrap; }
+.chat-suggestions button {
+  background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2);
+  padding:6px 12px; border-radius:12px; color:#38bdf8; font-size:11px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:600; cursor:pointer; transition:all .2s;
+}
+.chat-suggestions button:hover { background:#38bdf8; color:#000; }
+.chat-footer { padding:15px 20px; border-top:1px solid rgba(255,255,255,0.05); display:flex; gap:10px; }
+.chat-footer input {
+  flex:1; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+  padding:12px 16px; border-radius:12px; color:#fff; font-size:13px; font-family:'Outfit',sans-serif;
+  outline:none; transition:border-color .2s;
+}
+.chat-footer input:focus { border-color:#38bdf8; }
+.chat-footer input::placeholder { color:#444458; }
+.chat-footer button {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+  width:44px; border-radius:12px; color:#fff; cursor:pointer; transition:all .2s;
+}
+.chat-footer button:hover { background:#38bdf8; color:#000; border-color:#38bdf8; }
+@media(max-width:450px){
+  #ai-chat-window { width:calc(100% - 40px); right:20px; left:20px; bottom:90px; height:450px; }
+  #ai-bubble { bottom:20px; right:20px; }
+}
+
 @media(max-width:960px){
   nav { width:96%; padding:12px 20px; top:12px; }
   .nav-links { display:none; }
@@ -739,5 +817,96 @@ footer {
   <div class="f-copy">© 2026 Laith Saleh. Built with precision.</div>
 </footer>
 
+<!-- AI CHAT BUBBLE -->
+<div id="ai-bubble" onclick="toggleAIChat()">
+  <i class="fa-solid fa-robot"></i>
+  <span>AI Assistant</span>
+</div>
+
+<!-- AI CHAT WINDOW -->
+<div id="ai-chat-window">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <i class="fa-solid fa-circle-nodes AI-glow"></i>
+      <div>
+        <h4>Laith's AI Clone</h4>
+        <p>Online &bull; Powered by Intellect</p>
+      </div>
+    </div>
+    <button class="close-chat" onclick="toggleAIChat()">&times;</button>
+  </div>
+  <div class="chat-body" id="chat-messages">
+    <div class="message ai-msg">
+      Hi! I'm Laith's AI assistant. Ask me anything about his expertise, the LON Automation System, or how he can help your business.
+    </div>
+  </div>
+  <div class="chat-suggestions">
+    <button onclick="sendSuggestion('Tell me about LON System')">LON System</button>
+    <button onclick="sendSuggestion('What is your tech stack?')">Tech Stack</button>
+    <button onclick="sendSuggestion('How to contact Laith?')">Contact</button>
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="chat-input" placeholder="Ask about skills, projects, goals..." onkeypress="handleChatKeyPress(event)">
+    <button onclick="processUserMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script>
+function toggleAIChat() {
+  const w = document.getElementById('ai-chat-window');
+  w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
+}
+function handleChatKeyPress(e) {
+  if (e.key === 'Enter') processUserMessage();
+}
+function sendSuggestion(text) {
+  document.getElementById('chat-input').value = text;
+  processUserMessage();
+}
+function processUserMessage() {
+  const inputEl = document.getElementById('chat-input');
+  const text = inputEl.value.trim();
+  if (!text) return;
+  appendMessage(text, 'user-msg');
+  inputEl.value = '';
+  const typing = document.createElement('div');
+  typing.className = 'message ai-msg typing-indicator';
+  typing.id = 'typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  document.getElementById('chat-messages').appendChild(typing);
+  document.getElementById('chat-messages').scrollTop = 99999;
+  setTimeout(() => {
+    const t = document.getElementById('typing');
+    if (t) t.remove();
+    appendMessage(generateAIResponse(text), 'ai-msg');
+  }, 800);
+}
+function appendMessage(text, cls) {
+  const c = document.getElementById('chat-messages');
+  const d = document.createElement('div');
+  d.className = 'message ' + cls;
+  d.innerText = text;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+function generateAIResponse(q) {
+  const lq = q.toLowerCase();
+  if (lq.includes('lon') || lq.includes('automation') || lq.includes('أتمتة'))
+    return "The LON Automation System is Laith's flagship project — a fully automated Python pipeline integrated with Gemini AI and GitHub Actions to publish content daily with zero human intervention.";
+  if (lq.includes('skill') || lq.includes('stack') || lq.includes('مهارات') || lq.includes('برمجة'))
+    return "Laith's technical arsenal: Python (AI & Automation), Java (OOP & Desktop Apps), Oracle / SQL / PL/SQL (Enterprise Databases), HTML/CSS/PHP (Web), Cisco Networking, and Linux system environments.";
+  if (lq.includes('contact') || lq.includes('hire') || lq.includes('تواصل'))
+    return "You can reach Laith via the email button in the Contact section, or connect through his LinkedIn profile. He's open to internships, freelance, and global opportunities.";
+  if (lq.includes('os') || lq.includes('operating system'))
+    return "Laith is architecting a Next-Gen AI Operating System concept — deeply integrated with generative AI, featuring an ultra-minimalist GUI and performance-first design.";
+  if (lq.includes('database') || lq.includes('sql') || lq.includes('oracle'))
+    return "Laith specializes in enterprise database engineering: relational data modeling, complex SQL/PL/SQL, and Oracle systems optimization for high-scale applications.";
+  if (lq.includes('goal') || lq.includes('vision') || lq.includes('future') || lq.includes('هدف'))
+    return "Laith's goals: graduate with excellence, land an elite AI/developer role globally (Australia, Canada, Switzerland), build a product used by millions, and lead an engineering team.";
+  if (lq.includes('java') || lq.includes('python'))
+    return "Laith uses Java for robust desktop applications and OOP architecture, and Python for AI integration, automation pipelines, and scripting. Both are core to his engineering workflow.";
+  return "I'm trained on Laith's full profile. Ask me about his projects (LON System, AI OS, Network Design), his tech stack, career goals, or how to get in touch!";
+}
+</script>
 </body>
 </html>
