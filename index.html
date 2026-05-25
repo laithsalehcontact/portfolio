@@ -67,10 +67,6 @@ nav.scrolled{background:rgba(6,6,10,0.92);border-color:rgba(255,255,255,0.12);}
 .nav-cta:hover::before{transform:scaleX(1);}
 .nav-cta:hover{border-color:var(--red);}
 
-/* ══ CURSOR ══ */
-#cursor{position:fixed;width:8px;height:8px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;mix-blend-mode:screen;}
-#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(56,189,248,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;mix-blend-mode:screen;}
-
 /* ══ HERO ══ */
 #hero{
   min-height:100vh;display:flex;align-items:center;
@@ -483,20 +479,13 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
 </head>
 <body>
 
-<!-- CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<!-- CANVAS -->
 <canvas id="particle-canvas"></canvas>
 
-<!-- ORBS -->
 <div class="bg-orbs">
   <div class="orb orb-1"></div><div class="orb orb-2"></div>
   <div class="orb orb-3"></div><div class="orb orb-4"></div>
 </div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a class="nav-logo" href="#hero">LAITH<span>.</span></a>
   <ul class="nav-links">
@@ -508,7 +497,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-scan-line"></div>
@@ -533,7 +521,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-strip">
   <div class="stat-item"><div class="stat-num">CIS</div><div class="stat-label">Major</div></div>
   <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Projects Built</div></div>
@@ -542,7 +529,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Committed</div></div>
 </div>
 
-<!-- ABOUT -->
 <section id="about" style="padding:0;background:var(--dark);">
   <div class="sw">
     <div class="about-grid">
@@ -604,7 +590,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- EXPERTISE -->
 <section id="expertise" style="padding:0;background:var(--black);">
   <div class="sw">
     <span class="s-label reveal">Core Competencies</span>
@@ -657,7 +642,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects" style="padding:0;background:var(--dark);">
   <div class="sw">
     <span class="s-label reveal">Selected Works</span>
@@ -692,7 +676,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- VISION -->
 <section id="vision" style="padding:0;background:var(--black);">
   <div class="sw">
     <span class="s-label reveal">Forward Thinking</span>
@@ -714,7 +697,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" style="padding:0;background:var(--dark);">
   <div class="sw">
     <div class="contact-inner reveal">
@@ -729,7 +711,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="f-logo">LAITH <span>SALEH</span></div>
   <div class="f-links">
@@ -740,14 +721,12 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
   <div class="f-copy">© 2026 Laith Saleh. Built with precision.</div>
 </footer>
 
-<!-- AI BUBBLE -->
 <div id="ai-bubble" onclick="toggleChat()">
   <div class="bubble-icon"><i class="fa-solid fa-robot"></i></div>
   <span>AI Assistant</span>
   <div class="bubble-status"></div>
 </div>
 
-<!-- AI CHAT -->
 <div id="ai-chat-window">
   <div class="chat-header">
     <div class="chat-header-info">
@@ -776,18 +755,6 @@ footer{background:#020204;padding:44px 6%;display:flex;justify-content:space-bet
 </div>
 
 <script>
-/* ══ CURSOR ══ */
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
-animRing();
-document.querySelectorAll('a,button,.chip,.proj-card,.exp-card,.v-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.8)';ring.style.borderColor='rgba(232,0,29,0.6)';});
-  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(56,189,248,0.4)';});
-});
-
 /* ══ PARTICLES ══ */
 const canvas=document.getElementById('particle-canvas');
 const ctx=canvas.getContext('2d');
