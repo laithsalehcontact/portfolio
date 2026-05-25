@@ -837,7 +837,7 @@ function typeWrite(){
 }
 setTimeout(typeWrite,1200);
 
-/* ══ AI CHAT ══ */
+/* ══ AI CHAT (GEMINI BACKEND INTEGRATION) ══ */
 let chatOpen=false;
 function toggleChat(){
   chatOpen=!chatOpen;
@@ -846,60 +846,62 @@ function toggleChat(){
   if(chatOpen){w.classList.add('show');w.style.display='flex';b.classList.add('active');}
   else{w.classList.remove('show');setTimeout(()=>{w.style.display='none';},300);b.classList.remove('active');}
 }
+
 function suggest(t){document.getElementById('chat-in').value=t;sendMsg();}
-function sendMsg(){
+
+async function sendMsg(){
   const inp=document.getElementById('chat-in');
   const txt=inp.value.trim();if(!txt)return;
+  
+  // 1. عرض رسالة المستخدم
   addMsg(txt,'user-msg');inp.value='';
+  
+  // 2. إظهار مؤشر الكتابة (النقاط المتحركة)
   const typing=document.createElement('div');
   typing.className='typing-indicator';typing.id='typing';
   typing.innerHTML='<span></span><span></span><span></span>';
   document.getElementById('chat-msgs').appendChild(typing);
   scrollChat();
+  
   const thinking=document.getElementById('ai-thinking');
   if(thinking)thinking.style.display='block';
-  setTimeout(()=>{
+
+  try {
+    // 3. إرسال الطلب إلى سيرفر FastAPI (Render)
+    const response = await fetch('https://laith-ai-backend.onrender.com/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: txt })
+    });
+    
+    // 4. استلام الرد من Gemini عبر السيرفر
+    const data = await response.json();
+    
+    // 5. إزالة مؤشر الكتابة وعرض الرد الذكي
     const t=document.getElementById('typing');if(t)t.remove();
     if(thinking)thinking.style.display='none';
-    addMsg(getAIResponse(txt),'ai-msg');
-  },700+Math.random()*500);
+    addMsg(data.reply, 'ai-msg');
+    
+  } catch (error) {
+    // معالجة الأخطاء (مثلاً إذا كان السيرفر متوقف)
+    const t=document.getElementById('typing');if(t)t.remove();
+    if(thinking)thinking.style.display='none';
+    console.error(error);
+    addMsg('I am currently offline upgrading my neural links. Please try again later or contact Laith directly.', 'ai-msg');
+  }
 }
+
 function addMsg(text,cls){
   const c=document.getElementById('chat-msgs');
   const d=document.createElement('div');
   d.className='msg '+cls;d.textContent=text;
   c.appendChild(d);scrollChat();
 }
+
 function scrollChat(){const c=document.getElementById('chat-msgs');c.scrollTop=c.scrollHeight;}
 
-const kb=[
-  {keys:['lon','automation','أتمتة','pipeline'],r:"The LON Automation System is Laith's flagship project — a fully automated Python pipeline using Gemini AI + GitHub Actions to draft, format, and publish content daily. Zero human interaction required."},
-  {keys:['skill','stack','مهارات','برمجة','tech','language'],r:"Laith's full stack: Python (AI & Automation), Java (Desktop Apps, OOP), Oracle/SQL/PL/SQL (Databases), HTML/CSS/PHP (Web), Cisco (Networking), Linux (Systems). All battle-tested in real projects."},
-  {keys:['contact','hire','email','تواصل','work'],r:"You can reach Laith directly via the Email button in the Contact section, or connect on LinkedIn. He's actively open to internships, freelance work, and global engineering roles."},
-  {keys:['os','operating system','نظام تشغيل'],r:"Laith is architecting a Next-Gen AI OS concept — a custom OS deeply integrated with generative AI, featuring an ultra-minimalist GUI and performance-first kernel design."},
-  {keys:['database','sql','oracle','db','بيانات'],r:"Laith specializes in enterprise database engineering: relational modeling, complex SQL/PL/SQL queries, stored procedures, and Oracle optimization for large-scale data systems."},
-  {keys:['goal','vision','future','plan','هدف','مستقبل'],r:"Laith's 4 goals: (1) Graduate with excellence, (2) Land a senior AI/dev role globally, (3) Build a product used by millions, (4) Lead an engineering team. He's also targeting Australia, Canada & Switzerland."},
-  {keys:['java','oop','swing','desktop'],r:"Java is Laith's primary OOP language. He builds full desktop applications using Java + Swing with proper MVC architecture, clean class design, and database integration."},
-  {keys:['python','gemini','ai','machine','artificial'],r:"Python is Laith's AI weapon. He uses it with Gemini API to build automation systems, intelligent content pipelines, and scripted workflows — including the LON System."},
-  {keys:['network','cisco','tcp','security','شبكات'],r:"Laith has hands-on networking skills: designed enterprise topologies in Cisco Packet Tracer, configured subnetting, VLANs, and implemented TCP/IP security protocols."},
-  {keys:['australia','canada','switzerland','migrate','global','abroad'],r:"Laith is actively planning to migrate to top tech markets — Australia, Canada, or Switzerland — pursuing IELTS C2 certification and targeting elite engineering roles internationally."},
-  {keys:['study','university','student','college','cis','طالب'],r:"Laith is a CIS (Computer Information Systems) student fully committed to mastering every domain — from software engineering to AI to networking — while building real projects simultaneously."},
-  {keys:['project','work','portfolio','built'],r:"Laith's key projects: LON AI Automation System (Python + Gemini), Student Management System (Java + SQL), Enterprise Network Design (Cisco), and Next-Gen AI OS (in concept). All built from scratch."},
-  {keys:['hello','hi','hey','مرحبا','اهلا','هلا'],r:"Hey! I'm Laith's AI assistant. I know everything about his skills, projects, and goals. What would you like to know? 🚀"},
-  {keys:['who','laith','من','شو'],r:"Laith Saleh is a CIS student and AI developer passionate about automation, enterprise software, and intelligent systems. He builds end-to-end solutions and is targeting global tech markets."},
-];
-function getAIResponse(q){
-  const lq=q.toLowerCase();
-  for(const item of kb){
-    if(item.keys.some(k=>lq.includes(k)))return item.r;
-  }
-  const fallbacks=[
-    "Great question! I'm trained on Laith's full profile. Try asking about the LON System, his tech stack, career goals, or how to contact him.",
-    "I can tell you about Laith's projects, skills, database work, AI automation, networking expertise, or his global career vision. What interests you most?",
-    "Hmm, let me check Laith's data... Ask me something specific — like his Python projects, Java skills, goals, or how to reach him directly!"
-  ];
-  return fallbacks[Math.floor(Math.random()*fallbacks.length)];
-}
 </script>
 </body>
 </html>
