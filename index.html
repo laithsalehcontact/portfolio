@@ -20,6 +20,9 @@ body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;
 /* ══ CANVAS ══ */
 #cvs{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
+/* ══ GRID OVERLAY ══ */
+body::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(56,189,248,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,0.018) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
 /* ══ ORBS ══ */
 .orbs{position:fixed;inset:0;z-index:-1;background:var(--black);}
 .orb{position:absolute;border-radius:50%;filter:blur(140px);animation:of 30s infinite alternate ease-in-out;pointer-events:none;}
@@ -29,12 +32,8 @@ body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;
 .o4{width:400px;height:400px;background:rgba(201,168,76,0.025);bottom:10%;right:30%;animation-delay:-6s;}
 @keyframes of{0%{transform:translate(0,0) scale(1);}100%{transform:translate(80px,60px) scale(1.18);}}
 
-/* ══ LOADING SCREEN ══ */
-#loader{
-  position:fixed;inset:0;z-index:10000;background:var(--black);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
-  transition:opacity .6s ease,visibility .6s ease;
-}
+/* ══ LOADER ══ */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .6s ease,visibility .6s ease;}
 #loader.hide{opacity:0;visibility:hidden;}
 .loader-logo{font-family:'Bebas Neue',sans-serif;font-size:60px;letter-spacing:6px;color:var(--white);}
 .loader-logo span{color:var(--red);}
@@ -43,48 +42,25 @@ body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;
 @keyframes lb{0%{width:0;}100%{width:100%;}}
 .loader-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);letter-spacing:2px;}
 
+/* ══ PROGRESS ══ */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--red),var(--blue));z-index:500;width:0;transition:width .08s;}
+
 /* ══ NAV ══ */
-nav{
-  position:fixed;top:18px;left:50%;transform:translateX(-50%);
-  width:92%;max-width:1320px;z-index:300;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 30px;
-  background:rgba(8,8,15,0.65);
-  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
-  border:1px solid var(--gb);border-radius:16px;
-  box-shadow:0 8px 40px rgba(0,0,0,0.5);
-  transition:all .4s ease;
-}
+nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:92%;max-width:1320px;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:12px 30px;background:rgba(8,8,15,0.65);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid var(--gb);border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5);transition:all .4s ease;}
 nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:var(--white);text-decoration:none;position:relative;}
 .nav-logo span{color:var(--red);}
 .nav-logo::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--red);transition:width .3s;}
 .nav-logo:hover::after{width:100%;}
 .nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{
-  color:rgba(238,238,248,0.5);text-decoration:none;
-  font-family:'Barlow Condensed',sans-serif;font-size:12px;
-  font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  transition:color .2s;position:relative;
-}
+.nav-links a{color:rgba(238,238,248,0.5);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:color .2s;position:relative;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--blue);transition:width .3s;}
 .nav-links a:hover{color:var(--white);}
 .nav-links a:hover::after{width:100%;}
 .nav-right{display:flex;align-items:center;gap:14px;}
-.nav-theme{background:none;border:1px solid var(--gb);color:var(--gray);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
-.nav-theme:hover{border-color:var(--blue);color:var(--blue);}
-.nav-cta{
-  background:transparent;color:var(--white);
-  border:1px solid var(--red);padding:9px 20px;border-radius:8px;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;font-size:12px;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  transition:all .25s;position:relative;overflow:hidden;
-}
+.nav-cta{background:transparent;color:var(--white);border:1px solid var(--red);padding:9px 20px;border-radius:8px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all .25s;position:relative;overflow:hidden;}
 .nav-cta::before{content:'';position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s;z-index:-1;}
 .nav-cta:hover::before{transform:scaleX(1);}
-
-/* ══ PROGRESS BAR ══ */
-#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--red),var(--blue));z-index:500;width:0;transition:width .1s;}
 
 /* ══ HERO ══ */
 #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 24px 60px;position:relative;overflow:hidden;}
@@ -103,6 +79,15 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .badge-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:bd 1.5s infinite;}
 @keyframes bg{0%{box-shadow:0 0 8px rgba(56,189,248,0.08);}100%{box-shadow:0 0 22px rgba(56,189,248,0.22);}}
 @keyframes bd{0%,100%{opacity:1;}50%{opacity:.15;}}
+
+/* ══ GLITCH ══ */
+.glitch{position:relative;display:block;}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;right:0;top:0;font-family:'Bebas Neue',sans-serif;}
+.glitch::before{color:rgba(232,0,29,0.75);clip-path:polygon(0 0,100% 0,100% 35%,0 35%);animation:glitch1 4s infinite;text-shadow:2px 0 var(--red);}
+.glitch::after{color:rgba(56,189,248,0.65);clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);animation:glitch2 4s infinite;text-shadow:-2px 0 var(--blue);}
+@keyframes glitch1{0%,90%,100%{transform:translate(0);opacity:0;}92%{transform:translate(-3px,-1px);opacity:1;}94%{transform:translate(3px,1px);opacity:1;}96%{transform:translate(-2px,0);opacity:1;}98%{transform:translate(0);opacity:0;}}
+@keyframes glitch2{0%,90%,100%{transform:translate(0);opacity:0;}91%{transform:translate(3px,1px);opacity:1;}93%{transform:translate(-3px,-1px);opacity:1;}97%{transform:translate(2px,0);opacity:1;}99%{transform:translate(0);opacity:0;}}
+
 .hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(74px,14vw,175px);line-height:.84;letter-spacing:4px;margin-bottom:20px;}
 .n1{display:block;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.7) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .n2{display:block;color:var(--red);text-shadow:0 0 60px rgba(232,0,29,0.28);animation:ng 4.5s ease-in-out infinite alternate;}
@@ -119,32 +104,43 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .btn-red:hover{background:#bf0018;transform:translateY(-3px);box-shadow:0 14px 35px rgba(232,0,29,0.38);}
 .btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.14);padding:15px 42px;border-radius:10px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all .28s;text-decoration:none;display:inline-block;backdrop-filter:blur(10px);}
 .btn-ghost:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-3px);box-shadow:0 14px 35px rgba(56,189,248,0.1);}
-
-/* ══ HERO FLOATING CARDS ══ */
 .hero-float-cards{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
-.hfc{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 18px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--gb);border-radius:10px;
-  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);
-  animation:hfc-float 4s ease-in-out infinite alternate;
-}
-.hfc:nth-child(2){animation-delay:-1.3s;}
-.hfc:nth-child(3){animation-delay:-2.6s;}
+.hfc{display:flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(255,255,255,0.03);border:1px solid var(--gb);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);animation:hfc-float 4s ease-in-out infinite alternate;}
+.hfc:nth-child(2){animation-delay:-1.3s;}.hfc:nth-child(3){animation-delay:-2.6s;}
 .hfc i{font-size:14px;}
-.hfc-python i{color:#3b82f6;}
-.hfc-ai i{color:var(--blue);}
-.hfc-java i{color:var(--gold);}
+.hfc-python i{color:#3b82f6;}.hfc-ai i{color:var(--blue);}.hfc-java i{color:var(--gold);}
 @keyframes hfc-float{0%{transform:translateY(0);}100%{transform:translateY(-6px);}}
 
 /* ══ STATS ══ */
 .stats-strip{background:linear-gradient(90deg,#9a0014 0%,var(--red) 50%,#9a0014 100%);display:flex;justify-content:space-around;flex-wrap:wrap;padding:26px 40px;position:relative;overflow:hidden;}
 .stats-strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 200px,rgba(255,255,255,0.035) 200px,rgba(255,255,255,0.035) 201px);}
-.stats-strip::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%);}
 .stat-item{text-align:center;padding:6px 24px;position:relative;z-index:1;}
 .stat-num{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;color:#fff;line-height:1;}
 .stat-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:4px;}
+
+/* ══ SYSTEM STATUS ══ */
+#system-status{background:var(--dark);padding:60px 6%;position:relative;}
+.ss-inner{max-width:1320px;margin:0 auto;}
+.ss-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:12px;}
+.ss-title-group span{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:5px;color:var(--blue);text-transform:uppercase;margin-bottom:6px;}
+.ss-title-group h2{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;}
+.ss-live{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);text-transform:uppercase;}
+.ss-live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:sp 2s infinite;}
+@keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4);}50%{box-shadow:0 0 0 6px rgba(34,197,94,0);}}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.status-card{background:var(--card);border:1px solid var(--gb);border-radius:12px;padding:24px 22px;position:relative;overflow:hidden;transition:border-color .25s;}
+.status-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0;transition:opacity .3s;}
+.status-card:hover::before{opacity:1;}
+.status-card:hover{border-color:rgba(56,189,248,0.22);}
+.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sc-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);}
+.sc-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:3px 8px;border-radius:20px;}
+.sc-ok{background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2);}
+.sc-warn{background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid rgba(201,168,76,0.2);}
+.sc-pct{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--blue);letter-spacing:1px;line-height:1;margin-bottom:10px;}
+.status-bar{height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;margin-bottom:10px;}
+.status-bar .fill{height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--blue));transition:width 1.8s cubic-bezier(.25,.46,.45,.94);}
+.sc-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);letter-spacing:1px;}
 
 /* ══ REVEAL ══ */
 .rv{opacity:0;transform:translateY(55px);transition:opacity .75s ease,transform .75s ease;}
@@ -180,8 +176,6 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .chip::before{content:'';position:absolute;inset:0;background:rgba(232,0,29,0.06);transform:scaleX(0);transform-origin:left;transition:transform .25s;}
 .chip:hover::before{transform:scaleX(1);}
 .chip:hover{border-color:var(--red);color:var(--white);}
-
-/* ══ SKILL BARS ══ */
 .sbars{margin-top:52px;}
 .sbi{margin-bottom:18px;}
 .sbt{display:flex;justify-content:space-between;margin-bottom:6px;}
@@ -226,12 +220,16 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 
 /* ══ PROJECTS ══ */
 #projects{background:var(--black);}
+.proj-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.pf-btn{background:rgba(255,255,255,0.03);border:1px solid var(--gb);padding:8px 22px;border-radius:6px;color:var(--gray);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .22s;}
+.pf-btn.active,.pf-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 .proj-card{background:var(--card);padding:40px 36px;border-left:2px solid transparent;border-radius:6px;transition:all .3s;position:relative;overflow:hidden;cursor:default;}
 .proj-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 75% 15%,rgba(232,0,29,0.05) 0%,transparent 65%);opacity:0;transition:opacity .35s;}
 .proj-card:hover::before{opacity:1;}
 .proj-card::after{content:'';position:absolute;top:0;right:0;border-right:46px solid var(--mid);border-bottom:46px solid transparent;}
 .proj-card:hover{border-left-color:var(--red);transform:translateY(-5px);box-shadow:0 20px 45px rgba(0,0,0,0.4);}
+.proj-card.hidden{display:none;}
 .proj-type{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .proj-type::before{content:'';width:14px;height:1px;background:var(--red);}
 .proj-card h3{font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;margin-bottom:10px;}
@@ -239,7 +237,7 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .proj-tech{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px;}
 .ptag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);padding:3px 9px;background:rgba(201,168,76,0.07);border-radius:3px;border:1px solid rgba(201,168,76,0.14);}
 .proj-links{display:flex;gap:10px;margin-top:16px;}
-.proj-link{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s;}
+.proj-link{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s;background:none;border:none;cursor:pointer;padding:0;}
 .proj-link:hover{color:var(--blue);}
 .proj-link i{font-size:10px;}
 
@@ -270,8 +268,7 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .goal-row{display:flex;gap:26px;align-items:flex-start;padding:26px 0;border-bottom:1px solid rgba(255,255,255,0.045);transition:all .22s;}
 .goal-row:first-child{padding-top:0;}
 .goal-row:hover{padding-left:10px;}
-.g-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--red);line-height:1;flex-shrink:0;width:62px;transition:color .2s;}
-.goal-row:hover .g-num{color:#ff2e42;}
+.g-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--red);line-height:1;flex-shrink:0;width:62px;}
 .g-text h3{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
 .g-text p{font-size:13.5px;color:rgba(238,238,248,0.43);line-height:1.72;}
 .vision-cards{display:flex;flex-direction:column;gap:12px;}
@@ -283,7 +280,7 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 .v-card h4{font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;}
 .v-card p{font-size:12.5px;color:rgba(238,238,248,0.43);line-height:1.7;}
 
-/* ══ TESTIMONIALS / QUOTE ══ */
+/* ══ QUOTE ══ */
 #quote{background:var(--dark);}
 .quote-inner{max-width:900px;margin:0 auto;text-align:center;}
 .q-mark{font-family:'Bebas Neue',sans-serif;font-size:140px;color:rgba(232,0,29,0.08);line-height:.6;margin-bottom:20px;display:block;}
@@ -295,7 +292,7 @@ nav.scrolled{background:rgba(4,4,8,0.92);border-color:rgba(255,255,255,0.1);}
 /* ══ CONTACT ══ */
 #contact{background:var(--black);}
 .contact-inner{background:linear-gradient(135deg,#b00016 0%,var(--red) 40%,#8c0011 100%);border-radius:24px;padding:90px 70px;text-align:center;position:relative;overflow:hidden;}
-.contact-inner::before{content:'CONNECT';position:absolute;bottom:-55px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:210px;color:rgba(255,255,255,0.032);letter-spacing:-8px;pointer-events:none;user-select:none;animation:wb 8s ease-in-out infinite alternate;}
+.contact-inner::before{content:'CONNECT';position:absolute;bottom:-55px;right:-10px;font-family:'Bebas Neue',sans-serif;font-size:210px;color:rgba(255,255,255,0.032);letter-spacing:-8px;pointer-events:none;user-select:none;}
 .contact-inner::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(255,255,255,0.055) 0%,transparent 70%);}
 .contact-inner .sl{color:rgba(255,255,255,0.5);position:relative;z-index:1;}
 .contact-inner .st{color:#fff;position:relative;z-index:1;}
@@ -320,7 +317,7 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 .fsoc:hover{background:var(--red);color:#fff;border-color:var(--red);}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .f-copy{font-size:11px;color:#252535;font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
-.f-built{font-size:11px;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;}
+.f-built{font-size:10px;color:var(--gray);font-family:'JetBrains Mono',monospace;}
 .f-built span{color:var(--red);}
 
 /* ══ BACK TO TOP ══ */
@@ -329,18 +326,18 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 #btt:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px);}
 
 /* ══ AI CHAT ══ */
-#ai-bubble{position:fixed;bottom:30px;right:30px;z-index:998;background:rgba(8,8,15,0.8);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(56,189,248,0.2);padding:12px 20px;border-radius:40px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.55),0 0 20px rgba(56,189,248,0.1);transition:all .3s cubic-bezier(0.175,0.885,0.32,1.275);animation:benter .8s cubic-bezier(0.175,0.885,0.32,1.275) 2.5s both;}
+#ai-bubble{position:fixed;bottom:30px;right:30px;z-index:998;background:rgba(8,8,15,0.8);backdrop-filter:blur(22px);border:1px solid rgba(56,189,248,0.2);padding:12px 20px;border-radius:40px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.55),0 0 20px rgba(56,189,248,0.1);transition:all .3s cubic-bezier(0.175,0.885,0.32,1.275);animation:benter .8s cubic-bezier(0.175,0.885,0.32,1.275) 2.5s both;}
 @keyframes benter{from{opacity:0;transform:translateY(24px) scale(.88);}to{opacity:1;transform:translateY(0) scale(1);}}
 #ai-bubble:hover{transform:translateY(-5px) scale(1.04);border-color:rgba(56,189,248,0.48);box-shadow:0 14px 44px rgba(0,0,0,0.6),0 0 28px rgba(56,189,248,0.22);}
-#ai-bubble.active{border-color:rgba(56,189,248,0.48);}
 .b-icon{width:28px;height:28px;background:linear-gradient(135deg,rgba(56,189,248,0.2),rgba(167,139,250,0.2));border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .b-icon i{color:var(--blue);font-size:13px;}
 #ai-bubble span{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white);}
 .b-status{width:6px;height:6px;background:var(--green);border-radius:50%;animation:sp 2s infinite;}
-@keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}
-#ai-chat-window{position:fixed;bottom:88px;right:30px;width:395px;z-index:997;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7);background:rgba(8,8,16,0.94);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.07);border-radius:22px;overflow:hidden;}
+
+#ai-chat-window{position:fixed;bottom:88px;right:30px;width:400px;z-index:997;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.7);background:rgba(8,8,16,0.96);backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.07);border-radius:22px;overflow:hidden;}
 #ai-chat-window.show{display:flex;animation:co .3s cubic-bezier(0.175,0.885,0.32,1.275) both;}
 @keyframes co{from{opacity:0;transform:scale(.88) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
 .ch{padding:16px 18px;background:linear-gradient(135deg,rgba(232,0,29,0.07),rgba(56,189,248,0.04));border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;}
 .ch-info{display:flex;align-items:center;gap:12px;}
 .ch-av{width:36px;height:36px;background:linear-gradient(135deg,rgba(232,0,29,0.28),rgba(56,189,248,0.28));border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.1);}
@@ -348,13 +345,19 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 @keyframes ap{0%,100%{color:var(--blue);}50%{color:var(--purple);}}
 .ch-text h4{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;margin-bottom:2px;}
 .ch-text p{font-size:9px;color:var(--green);letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;}
-.ch-text p::before{content:'● ';animation:sp 2s infinite;}
+
+/* AI mode buttons */
+.ai-modes{padding:8px 14px;display:flex;gap:6px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.mode-btn{background:rgba(255,255,255,0.03);border:1px solid var(--gb);padding:4px 11px;border-radius:20px;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;transition:all .2s;}
+.mode-btn.active{background:rgba(232,0,29,0.12);border-color:rgba(232,0,29,0.3);color:var(--red);}
+.mode-btn:hover{border-color:rgba(255,255,255,0.15);color:var(--white);}
+
 .cc{background:none;border:1px solid rgba(255,255,255,0.07);color:var(--gray);width:28px;height:28px;border-radius:7px;cursor:pointer;transition:all .2s;font-size:15px;display:flex;align-items:center;justify-content:center;}
 .cc:hover{background:rgba(255,255,255,0.08);color:var(--white);}
-.cb{height:340px;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.cb{height:300px;padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
 .cb::-webkit-scrollbar{width:2px;}
 .cb::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:2px;}
-.msg{padding:10px 13px;border-radius:13px;font-size:12.5px;line-height:1.6;max-width:88%;font-family:'Outfit',sans-serif;animation:mp .22s ease both;}
+.msg{padding:10px 13px;border-radius:13px;font-size:12.5px;line-height:1.6;max-width:90%;font-family:'Outfit',sans-serif;animation:mp .22s ease both;}
 @keyframes mp{from{opacity:0;transform:translateY(7px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
 .ai-msg{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);align-self:flex-start;color:rgba(238,238,248,0.85);border-radius:4px 13px 13px 13px;}
 .user-msg{background:linear-gradient(135deg,var(--red),#bb0016);align-self:flex-end;color:#fff;font-weight:500;border-radius:13px 4px 13px 13px;}
@@ -363,39 +366,31 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 .typing-indicator span:nth-child(2){animation-delay:.2s;}
 .typing-indicator span:nth-child(3){animation-delay:.4s;}
 @keyframes tb{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-7px);}}
-.cs{padding:9px 16px 7px;display:flex;gap:6px;flex-wrap:wrap;}
-.cs button{background:rgba(56,189,248,0.055);border:1px solid rgba(56,189,248,0.16);padding:4px 10px;border-radius:12px;color:rgba(56,189,248,0.8);font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+.cs{padding:8px 14px;display:flex;gap:5px;flex-wrap:wrap;}
+.cs button{background:rgba(56,189,248,0.055);border:1px solid rgba(56,189,248,0.16);padding:4px 10px;border-radius:12px;color:rgba(56,189,248,0.8);font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .2s;}
 .cs button:hover{background:var(--blue);color:#000;border-color:var(--blue);}
-.cf{padding:11px 14px;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:7px;background:rgba(0,0,0,0.2);}
-.cf input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:10px 13px;border-radius:11px;color:var(--white);font-size:12px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;}
+.cf{padding:10px 12px;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:7px;background:rgba(0,0,0,0.2);}
+.cf input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:9px 12px;border-radius:10px;color:var(--white);font-size:12px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;}
 .cf input:focus{border-color:rgba(56,189,248,0.38);}
 .cf input::placeholder{color:rgba(255,255,255,0.18);font-size:11px;}
-.sbtn{background:rgba(232,0,29,0.13);border:1px solid rgba(232,0,29,0.22);width:40px;height:40px;border-radius:11px;color:var(--red);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;}
+.sbtn{background:rgba(232,0,29,0.13);border:1px solid rgba(232,0,29,0.22);width:38px;height:38px;border-radius:10px;color:var(--red);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;}
 .sbtn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.voice-btn{background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.15);width:38px;height:38px;border-radius:10px;color:var(--blue);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;}
+.voice-btn:hover{background:var(--blue);color:#000;}
+.voice-btn.speaking{background:var(--blue);color:#000;animation:pulse-voice .6s infinite alternate;}
+@keyframes pulse-voice{0%{box-shadow:0 0 0 0 rgba(56,189,248,0.4);}100%{box-shadow:0 0 0 8px rgba(56,189,248,0);}}
+
+/* Smart suggestions */
+.smart-sugg{padding:6px 14px;display:none;gap:5px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.04);}
+.smart-sugg.show{display:flex;}
+.sugg-chip{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.15);padding:3px 10px;border-radius:20px;color:var(--gold);font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .2s;}
+.sugg-chip:hover{background:var(--gold);color:#000;}
 
 /* ══ RESPONSIVE ══ */
-@media(max-width:1024px){
-  .exp-grid{grid-template-columns:1fr 1fr;}
-  .certs-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:960px){
-  nav{width:96%;padding:10px 16px;top:10px;}
-  .nav-links{display:none;}
-  .sw{padding:80px 5%;}
-  .about-grid,.vision-cols{grid-template-columns:1fr;gap:44px;}
-  .proj-grid{grid-template-columns:1fr;}
-  .contact-inner{padding:56px 28px;}
-  footer{padding:40px 5% 24px;}
-  .footer-top{gap:30px;}
-  .stats-strip{padding:20px;}
-  #btt{left:14px;bottom:88px;}
-}
-@media(max-width:640px){
-  .exp-grid{grid-template-columns:1fr;}
-  .certs-grid{grid-template-columns:1fr;}
-  #ai-chat-window{width:calc(100vw - 22px);right:11px;left:11px;bottom:80px;}
-  #ai-bubble{bottom:16px;right:14px;}
-}
+@media(max-width:1024px){.exp-grid{grid-template-columns:1fr 1fr;}.certs-grid{grid-template-columns:1fr 1fr;}.status-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:960px){nav{width:96%;padding:10px 16px;top:10px;}.nav-links{display:none;}.sw{padding:80px 5%;}.about-grid,.vision-cols{grid-template-columns:1fr;gap:44px;}.proj-grid{grid-template-columns:1fr;}.contact-inner{padding:56px 28px;}.footer-top{gap:30px;}.stats-strip{padding:20px;}#btt{left:14px;bottom:88px;}}
+@media(max-width:640px){.exp-grid{grid-template-columns:1fr;}.certs-grid{grid-template-columns:1fr;}.status-grid{grid-template-columns:1fr;}#ai-chat-window{width:calc(100vw - 22px);right:11px;left:11px;bottom:80px;}#ai-bubble{bottom:16px;right:14px;}}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(44px);}to{opacity:1;transform:translateY(0);}}
 .hero-badge{animation:fadeUp .6s ease both .2s;}
 .hero-name{animation:fadeUp .6s ease both .35s;}
@@ -450,7 +445,7 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
     </div>
     <div class="hero-name">
       <span class="n1">LAITH</span>
-      <span class="n2">SALEH</span>
+      <span class="glitch n2" data-text="SALEH">SALEH</span>
     </div>
     <div class="hero-title">// Computer Information Systems — AI Engineer — Systems Builder</div>
     <div class="tw-wrap">
@@ -470,12 +465,83 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 
 <div class="stats-strip">
   <div class="stat-item"><div class="stat-num">CIS</div><div class="stat-label">Major</div></div>
-  <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Projects Built</div></div>
-  <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Languages</div></div>
+  <div class="stat-item"><div class="stat-num" data-target="10">10+</div><div class="stat-label">Projects Built</div></div>
+  <div class="stat-item"><div class="stat-num" data-target="6">6+</div><div class="stat-label">Languages</div></div>
   <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered Dev</div></div>
-  <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Target Markets</div></div>
+  <div class="stat-item"><div class="stat-num" data-target="3">3</div><div class="stat-label">Target Markets</div></div>
   <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Committed</div></div>
 </div>
+
+<section id="system-status">
+  <div class="ss-inner">
+    <div class="ss-header rv">
+      <div class="ss-title-group">
+        <span>System Monitor</span>
+        <h2 class="st" style="font-size:42px;margin:0">LIVE <span class="acc">STATUS</span></h2>
+      </div>
+      <div class="ss-live">
+        <div class="ss-live-dot"></div>
+        All Systems Operational
+      </div>
+    </div>
+    <div class="status-grid">
+      <div class="status-card rv" style="transition-delay:.05s">
+        <div class="sc-top">
+          <span class="sc-name">AI Engine</span>
+          <span class="sc-badge sc-ok">RUNNING</span>
+        </div>
+        <div class="sc-pct" id="ai-pct">0%</div>
+        <div class="status-bar"><div class="fill" id="aiBar"></div></div>
+        <div class="sc-sub">Gemini API · Fully Operational</div>
+      </div>
+      <div class="status-card rv" style="transition-delay:.1s">
+        <div class="sc-top">
+          <span class="sc-name">Server Load</span>
+          <span class="sc-badge sc-ok">OPTIMIZED</span>
+        </div>
+        <div class="sc-pct" id="srv-pct">0%</div>
+        <div class="status-bar"><div class="fill" id="serverBar"></div></div>
+        <div class="sc-sub">Response time &lt;120ms</div>
+      </div>
+      <div class="status-card rv" style="transition-delay:.15s">
+        <div class="sc-top">
+          <span class="sc-name">Security</span>
+          <span class="sc-badge sc-ok">PROTECTED</span>
+        </div>
+        <div class="sc-pct" id="sec-pct">0%</div>
+        <div class="status-bar"><div class="fill" id="secBar"></div></div>
+        <div class="sc-sub">All protocols active</div>
+      </div>
+      <div class="status-card rv" style="transition-delay:.2s">
+        <div class="sc-top">
+          <span class="sc-name">Pipeline</span>
+          <span class="sc-badge sc-ok">ACTIVE</span>
+        </div>
+        <div class="sc-pct" id="pip-pct">0%</div>
+        <div class="status-bar"><div class="fill" id="pipBar"></div></div>
+        <div class="sc-sub">GitHub Actions · Running</div>
+      </div>
+      <div class="status-card rv" style="transition-delay:.25s">
+        <div class="sc-top">
+          <span class="sc-name">Network</span>
+          <span class="sc-badge sc-ok" id="net-badge">ONLINE</span>
+        </div>
+        <div class="sc-pct" id="net-pct">—</div>
+        <div class="status-bar"><div class="fill" id="netBar"></div></div>
+        <div class="sc-sub" id="net-sub">Connectivity: Active</div>
+      </div>
+      <div class="status-card rv" style="transition-delay:.3s">
+        <div class="sc-top">
+          <span class="sc-name">Build</span>
+          <span class="sc-badge sc-ok">PASSING</span>
+        </div>
+        <div class="sc-pct">✓</div>
+        <div class="status-bar"><div class="fill" id="buildBar"></div></div>
+        <div class="sc-sub">Last deploy: Today</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="about" style="padding:0;background:var(--dark);">
   <div class="sw">
@@ -544,39 +610,19 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
       <div class="tl-line"></div>
       <div class="tl-item">
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-content">
-          <span class="tl-year">2022 — START</span>
-          <h3>Enrolled in CIS Program</h3>
-          <p>Began my Computer Information Systems degree with a focus on fundamentals — programming logic, data structures, and computer architecture. Discovered a passion for building real systems.</p>
-          <div class="tl-tags"><span class="tl-tag">Foundations</span><span class="tl-tag">Programming</span></div>
-        </div>
+        <div class="tl-content"><span class="tl-year">2022 — START</span><h3>Enrolled in CIS Program</h3><p>Began my Computer Information Systems degree with a focus on fundamentals — programming logic, data structures, and computer architecture.</p><div class="tl-tags"><span class="tl-tag">Foundations</span><span class="tl-tag">Programming</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-content">
-          <span class="tl-year">2023 — GROWTH</span>
-          <h3>Mastered Java &amp; Enterprise Databases</h3>
-          <p>Deep-dived into Java OOP and Oracle database systems. Built my first real desktop application — a Student Management System handling full CRUD operations with PL/SQL stored procedures.</p>
-          <div class="tl-tags"><span class="tl-tag">Java</span><span class="tl-tag">Oracle</span><span class="tl-tag">OOP</span></div>
-        </div>
+        <div class="tl-content"><span class="tl-year">2023 — GROWTH</span><h3>Mastered Java &amp; Enterprise Databases</h3><p>Deep-dived into Java OOP and Oracle database systems. Built my first real desktop application — a Student Management System handling full CRUD operations.</p><div class="tl-tags"><span class="tl-tag">Java</span><span class="tl-tag">Oracle</span><span class="tl-tag">OOP</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-content">
-          <span class="tl-year">2024 — BREAKTHROUGH</span>
-          <h3>Built LON AI Automation System</h3>
-          <p>Integrated Gemini AI with Python and GitHub Actions to create a fully automated content pipeline. Zero human intervention. This project changed how I think about AI and automation engineering.</p>
-          <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Gemini API</span><span class="tl-tag">Automation</span></div>
-        </div>
+        <div class="tl-content"><span class="tl-year">2024 — BREAKTHROUGH</span><h3>Built LON AI Automation System</h3><p>Integrated Gemini AI with Python and GitHub Actions to create a fully automated content pipeline. Zero human intervention. This project changed how I think about AI.</p><div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">Gemini API</span><span class="tl-tag">Automation</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-        <div class="tl-content">
-          <span class="tl-year">2025 — PRESENT</span>
-          <h3>Advanced AI &amp; Global Preparation</h3>
-          <p>Working on Next-Gen AI OS concept, advancing IELTS to Band 9 (C2), building my global portfolio, and targeting elite tech roles in Australia, Canada &amp; Switzerland.</p>
-          <div class="tl-tags"><span class="tl-tag">AI OS</span><span class="tl-tag">IELTS C2</span><span class="tl-tag">Global</span></div>
-        </div>
+        <div class="tl-content"><span class="tl-year">2025 — PRESENT</span><h3>Advanced AI &amp; Global Preparation</h3><p>Working on Next-Gen AI OS concept, advancing IELTS to Band 9 (C2), building my global portfolio, and targeting elite tech roles in Australia, Canada &amp; Switzerland.</p><div class="tl-tags"><span class="tl-tag">AI OS</span><span class="tl-tag">IELTS C2</span><span class="tl-tag">Global</span></div></div>
       </div>
     </div>
   </div>
@@ -587,34 +633,53 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
     <span class="sl rv">Selected Works</span>
     <h2 class="st rv">FEATURED<br><span class="acc">PROJECTS</span></h2>
     <div class="rb rv"></div>
-    <div class="proj-grid">
-      <div class="proj-card rv" style="transition-delay:.05s">
+    <div class="proj-filter rv">
+      <button class="pf-btn active" onclick="filterProj('all',this)">All</button>
+      <button class="pf-btn" onclick="filterProj('ai',this)">AI</button>
+      <button class="pf-btn" onclick="filterProj('java',this)">Java</button>
+      <button class="pf-btn" onclick="filterProj('network',this)">Network</button>
+      <button class="pf-btn" onclick="filterProj('concept',this)">Concept</button>
+    </div>
+    <div class="proj-grid" id="proj-grid">
+      <div class="proj-card rv" data-type="ai" style="transition-delay:.05s">
         <div class="proj-type">AI Automation</div>
         <h3>LON Automation System</h3>
-        <p>A fully automated AI content pipeline using Gemini API to draft, format, and schedule daily publications — zero human intervention required. End-to-end from prompt to publication.</p>
+        <p>A fully automated AI content pipeline using Gemini API to draft, format, and schedule daily publications — zero human intervention. End-to-end from prompt to publication.</p>
         <div class="proj-tech"><span class="ptag">Python</span><span class="ptag">Gemini API</span><span class="ptag">GitHub Actions</span></div>
-        <div class="proj-links"><a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a><a href="#" class="proj-link"><i class="fa-brands fa-github"></i> Source</a></div>
+        <div class="proj-links">
+          <a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a>
+          <button class="proj-link" onclick="explainProject('LON Automation System — a Python + Gemini AI pipeline with zero human intervention')"><i class="fa-solid fa-robot"></i> AI Explain</button>
+        </div>
       </div>
-      <div class="proj-card rv" style="transition-delay:.1s">
+      <div class="proj-card rv" data-type="java" style="transition-delay:.1s">
         <div class="proj-type">Software Development</div>
         <h3>Student Management System</h3>
         <p>Full Java desktop application managing student records, grades, course assignments and attendance tracking — complete OOP architecture with Oracle database integration.</p>
         <div class="proj-tech"><span class="ptag">Java</span><span class="ptag">Oracle</span><span class="ptag">PL/SQL</span><span class="ptag">Swing</span></div>
-        <div class="proj-links"><a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a></div>
+        <div class="proj-links">
+          <a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a>
+          <button class="proj-link" onclick="explainProject('Student Management System — Java + Oracle desktop app with full CRUD and PL/SQL stored procedures')"><i class="fa-solid fa-robot"></i> AI Explain</button>
+        </div>
       </div>
-      <div class="proj-card rv" style="transition-delay:.15s">
+      <div class="proj-card rv" data-type="network" style="transition-delay:.15s">
         <div class="proj-type">Networking</div>
         <h3>Enterprise Network Design</h3>
         <p>Designed and simulated a full enterprise-grade network: subnetting, VLANs, inter-VLAN routing, access control lists, and security hardening across multiple departments.</p>
         <div class="proj-tech"><span class="ptag">Cisco Packet Tracer</span><span class="ptag">TCP/IP</span><span class="ptag">VLANs</span></div>
-        <div class="proj-links"><a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a></div>
+        <div class="proj-links">
+          <a href="#" class="proj-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Project</a>
+          <button class="proj-link" onclick="explainProject('Enterprise Network Design — Cisco VLANs, subnetting, ACLs, inter-VLAN routing')"><i class="fa-solid fa-robot"></i> AI Explain</button>
+        </div>
       </div>
-      <div class="proj-card rv" style="transition-delay:.2s">
+      <div class="proj-card rv" data-type="concept" style="transition-delay:.2s">
         <div class="proj-type">Concept / In Development</div>
         <h3>Next-Gen AI OS</h3>
         <p>Architectural groundwork for a custom OS deeply integrated with generative AI. Ultra-minimalist GUI, AI-native system calls, and a kernel designed around performance-first principles.</p>
         <div class="proj-tech"><span class="ptag">System Design</span><span class="ptag">AI Integration</span><span class="ptag">UI/UX</span></div>
-        <div class="proj-links"><a href="#" class="proj-link"><i class="fa-solid fa-eye"></i> Concept Deck</a></div>
+        <div class="proj-links">
+          <a href="#" class="proj-link"><i class="fa-solid fa-eye"></i> Concept Deck</a>
+          <button class="proj-link" onclick="explainProject('Next-Gen AI OS — custom operating system with generative AI baked into the kernel')"><i class="fa-solid fa-robot"></i> AI Explain</button>
+        </div>
       </div>
     </div>
   </div>
@@ -626,42 +691,12 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
     <h2 class="st rv">CERTS &amp;<br><span class="acc">LEARNING</span></h2>
     <div class="rb rv"></div>
     <div class="certs-grid">
-      <div class="cert-card rv" style="transition-delay:.05s">
-        <div class="cert-icon ci-blue"><i class="fa-brands fa-python"></i></div>
-        <h4>Python for Everybody</h4>
-        <p>University of Michigan — Coursera. Core Python programming, data structures, and automation fundamentals.</p>
-        <span class="cert-status cs-done">✓ Completed</span>
-      </div>
-      <div class="cert-card rv" style="transition-delay:.1s">
-        <div class="cert-icon ci-gold"><i class="fa-solid fa-database"></i></div>
-        <h4>Oracle SQL Fundamentals</h4>
-        <p>Oracle University. Comprehensive SQL, PL/SQL, stored procedures, and enterprise database administration.</p>
-        <span class="cert-status cs-done">✓ Completed</span>
-      </div>
-      <div class="cert-card rv" style="transition-delay:.15s">
-        <div class="cert-icon ci-red"><i class="fa-solid fa-network-wired"></i></div>
-        <h4>CCNA — Networking Basics</h4>
-        <p>Cisco Networking Academy. Network fundamentals, IP addressing, routing protocols, and security concepts.</p>
-        <span class="cert-status cs-prog">⟳ In Progress</span>
-      </div>
-      <div class="cert-card rv" style="transition-delay:.2s">
-        <div class="cert-icon ci-purple"><i class="fa-solid fa-robot"></i></div>
-        <h4>AI for Everyone — DeepLearning.AI</h4>
-        <p>Andrew Ng. Non-technical AI strategy, machine learning workflow, and AI project lifecycle management.</p>
-        <span class="cert-status cs-done">✓ Completed</span>
-      </div>
-      <div class="cert-card rv" style="transition-delay:.25s">
-        <div class="cert-icon ci-green"><i class="fa-brands fa-java"></i></div>
-        <h4>Java Programming Masterclass</h4>
-        <p>Udemy — 120 hours. Core Java, OOP, data structures, algorithms, JDBC database connectivity.</p>
-        <span class="cert-status cs-prog">⟳ In Progress</span>
-      </div>
-      <div class="cert-card rv" style="transition-delay:.3s">
-        <div class="cert-icon ci-white"><i class="fa-solid fa-language"></i></div>
-        <h4>IELTS Academic — Band 9 Target</h4>
-        <p>Actively preparing for IELTS Academic C2 (Band 9) to unlock elite international tech opportunities.</p>
-        <span class="cert-status cs-plan">◎ Planned 2025</span>
-      </div>
+      <div class="cert-card rv" style="transition-delay:.05s"><div class="cert-icon ci-blue"><i class="fa-brands fa-python"></i></div><h4>Python for Everybody</h4><p>University of Michigan — Coursera. Core Python programming, data structures, and automation fundamentals.</p><span class="cert-status cs-done">✓ Completed</span></div>
+      <div class="cert-card rv" style="transition-delay:.1s"><div class="cert-icon ci-gold"><i class="fa-solid fa-database"></i></div><h4>Oracle SQL Fundamentals</h4><p>Oracle University. Comprehensive SQL, PL/SQL, stored procedures, and enterprise database administration.</p><span class="cert-status cs-done">✓ Completed</span></div>
+      <div class="cert-card rv" style="transition-delay:.15s"><div class="cert-icon ci-red"><i class="fa-solid fa-network-wired"></i></div><h4>CCNA — Networking Basics</h4><p>Cisco Networking Academy. Network fundamentals, IP addressing, routing protocols, and security concepts.</p><span class="cert-status cs-prog">⟳ In Progress</span></div>
+      <div class="cert-card rv" style="transition-delay:.2s"><div class="cert-icon ci-purple"><i class="fa-solid fa-robot"></i></div><h4>AI for Everyone — DeepLearning.AI</h4><p>Andrew Ng. Non-technical AI strategy, machine learning workflow, and AI project lifecycle management.</p><span class="cert-status cs-done">✓ Completed</span></div>
+      <div class="cert-card rv" style="transition-delay:.25s"><div class="cert-icon ci-green"><i class="fa-brands fa-java"></i></div><h4>Java Programming Masterclass</h4><p>Udemy — 120 hours. Core Java, OOP, data structures, algorithms, JDBC database connectivity.</p><span class="cert-status cs-prog">⟳ In Progress</span></div>
+      <div class="cert-card rv" style="transition-delay:.3s"><div class="cert-icon ci-white"><i class="fa-solid fa-language"></i></div><h4>IELTS Academic — Band 9 Target</h4><p>Actively preparing for IELTS Academic C2 (Band 9) to unlock elite international tech opportunities.</p><span class="cert-status cs-plan">◎ Planned 2025</span></div>
     </div>
   </div>
 </section>
@@ -724,26 +759,9 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
         <a href="#" class="fsoc"><i class="fa-brands fa-x-twitter"></i></a>
       </div>
     </div>
-    <div class="footer-col">
-      <h5>Navigate</h5>
-      <a href="#about">About</a>
-      <a href="#expertise">Expertise</a>
-      <a href="#timeline">Journey</a>
-      <a href="#projects">Projects</a>
-    </div>
-    <div class="footer-col">
-      <h5>More</h5>
-      <a href="#certs">Certificates</a>
-      <a href="#vision">Vision</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="footer-col">
-      <h5>Tech Stack</h5>
-      <a href="#">Python / Gemini AI</a>
-      <a href="#">Java / Oracle</a>
-      <a href="#">HTML / PHP</a>
-      <a href="#">Cisco / Linux</a>
-    </div>
+    <div class="footer-col"><h5>Navigate</h5><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#timeline">Journey</a><a href="#projects">Projects</a></div>
+    <div class="footer-col"><h5>More</h5><a href="#certs">Certificates</a><a href="#vision">Vision</a><a href="#contact">Contact</a></div>
+    <div class="footer-col"><h5>Tech Stack</h5><a href="#">Python / Gemini AI</a><a href="#">Java / Oracle</a><a href="#">HTML / PHP</a><a href="#">Cisco / Linux</a></div>
   </div>
   <div class="footer-bottom">
     <div class="f-copy">© 2026 Laith Saleh — All Rights Reserved</div>
@@ -765,23 +783,29 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
       <div class="ch-av"><i class="fa-solid fa-circle-nodes"></i></div>
       <div class="ch-text">
         <h4>Laith's AI Clone</h4>
-        <p>Online</p>
+        <p>Powered by Laith's Backend · Online</p>
       </div>
     </div>
     <button class="cc" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="cb" id="cmsg">
-    <div class="msg ai-msg">Hi! I'm Laith's AI. Ask me anything about his skills, projects, goals, or how to hire him! 🚀</div>
+  <div class="ai-modes">
+    <button class="mode-btn active" onclick="setMode('professional',this)">Professional</button>
+    <button class="mode-btn" onclick="setMode('friendly',this)">Friendly</button>
+    <button class="mode-btn" onclick="setMode('genius',this)">Genius Mode</button>
   </div>
+  <div class="cb" id="cmsg">
+    <div class="msg ai-msg">Hi! I'm Laith's AI assistant. Ask me about his skills, projects, goals, or how to hire him! 🚀</div>
+  </div>
+  <div class="smart-sugg" id="smart-sugg"></div>
   <div class="cs">
     <button onclick="sg('LON System')">LON System</button>
     <button onclick="sg('Tech stack?')">Tech Stack</button>
     <button onclick="sg('Your goals?')">Goals</button>
     <button onclick="sg('How to hire Laith?')">Hire</button>
-    <button onclick="sg('Certificates?')">Certs</button>
   </div>
   <div class="cf">
-    <input type="text" id="cin" placeholder="Ask anything about Laith..." onkeydown="if(event.key==='Enter')sm()">
+    <input type="text" id="cin" placeholder="Ask anything about Laith..." onkeydown="if(event.key==='Enter')sm()" oninput="showSuggestions(this.value)">
+    <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Toggle AI voice"><i class="fa-solid fa-volume-high"></i></button>
     <button class="sbtn" onclick="sm()"><i class="fa-solid fa-paper-plane"></i></button>
   </div>
 </div>
@@ -790,14 +814,8 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 /* ══ LOADER ══ */
 const loaderMsgs=['INITIALIZING SYSTEMS...','LOADING MODULES...','COMPILING INTELLIGENCE...','READY.'];
 let lmi=0;
-const ltimer=setInterval(()=>{
-  lmi++;
-  if(lmi<loaderMsgs.length){document.getElementById('loader-text').textContent=loaderMsgs[lmi];}
-  else{clearInterval(ltimer);}
-},400);
-window.addEventListener('load',()=>{
-  setTimeout(()=>{document.getElementById('loader').classList.add('hide');},1700);
-});
+const ltimer=setInterval(()=>{lmi++;if(lmi<loaderMsgs.length){document.getElementById('loader-text').textContent=loaderMsgs[lmi];}else{clearInterval(ltimer);}},400);
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hide');},1700);});
 
 /* ══ CANVAS PARTICLES ══ */
 const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
@@ -812,23 +830,25 @@ const pts=Array.from({length:140},()=>({
 }));
 (function draw(){
   ctx.clearRect(0,0,cvs.width,cvs.height);
-  pts.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0||p.x>cvs.width)p.vx*=-1;
-    if(p.y<0||p.y>cvs.height)p.vy*=-1;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(${p.c},${p.o})`;ctx.fill();
-  });
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cvs.width)p.vx*=-1;if(p.y<0||p.y>cvs.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.o})`;ctx.fill();});
   requestAnimationFrame(draw);
 })();
 
-/* ══ SCROLL PROGRESS ══ */
+/* ══ SCROLL ══ */
+let ticking=false;
 window.addEventListener('scroll',()=>{
-  const h=document.documentElement,b=document.body;
-  const pct=(h.scrollTop||b.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('progress').style.width=pct+'%';
-  document.getElementById('navbar').classList.toggle('scrolled',(h.scrollTop||b.scrollTop)>60);
-  document.getElementById('btt').classList.toggle('show',(h.scrollTop||b.scrollTop)>400);
+  if(!ticking){
+    window.requestAnimationFrame(()=>{
+      const h=document.documentElement,b=document.body;
+      const top=h.scrollTop||b.scrollTop;
+      const pct=top/(h.scrollHeight-h.clientHeight)*100;
+      document.getElementById('progress').style.width=pct+'%';
+      document.getElementById('navbar').classList.toggle('scrolled',top>60);
+      document.getElementById('btt').classList.toggle('show',top>400);
+      ticking=false;
+    });
+    ticking=true;
+  }
 });
 
 /* ══ REVEAL ══ */
@@ -837,17 +857,49 @@ document.querySelectorAll('.rv,.rl,.rr').forEach(el=>obs.observe(el));
 
 /* ══ SKILL BARS ══ */
 const sbo=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.sbfill').forEach((b,i)=>{setTimeout(()=>{b.style.transform=`scaleX(${b.dataset.w})`;},i*160);});sbo.unobserve(e.target);}});
+},{threshold:.3});
+const sb=document.getElementById('sbars');if(sb)sbo.observe(sb);
+
+/* ══ SYSTEM STATUS ══ */
+const ssObs=new IntersectionObserver(es=>{
   es.forEach(e=>{
     if(e.isIntersecting){
-      e.target.querySelectorAll('.sbfill').forEach((b,i)=>{
-        setTimeout(()=>{b.style.transform=`scaleX(${b.dataset.w})`;},i*160);
-      });
-      sbo.unobserve(e.target);
+      animateStatus();
+      ssObs.unobserve(e.target);
     }
   });
 },{threshold:.3});
-const sb=document.getElementById('sbars');
-if(sb)sbo.observe(sb);
+const ssEl=document.getElementById('system-status');if(ssEl)ssObs.observe(ssEl);
+
+function animateStatus(){
+  const data=[
+    {bar:'aiBar',pct:'ai-pct',val:92,delay:0},
+    {bar:'serverBar',pct:'srv-pct',val:78,delay:100},
+    {bar:'secBar',pct:'sec-pct',val:96,delay:200},
+    {bar:'pipBar',pct:'pip-pct',val:88,delay:300},
+    {bar:'netBar',pct:'net-pct',val:navigator.onLine?100:0,delay:400},
+    {bar:'buildBar',pct:null,val:100,delay:500}
+  ];
+  data.forEach(d=>{
+    setTimeout(()=>{
+      const bar=document.getElementById(d.bar);
+      if(bar)bar.style.width=d.val+'%';
+      if(d.pct){
+        const el=document.getElementById(d.pct);
+        if(el){
+          let c=0;const t=setInterval(()=>{
+            c+=2;if(c>=d.val){el.textContent=d.val+'%';clearInterval(t);}else{el.textContent=c+'%';}
+          },20);
+        }
+      }
+    },d.delay);
+  });
+  // Real network status
+  document.getElementById('net-pct').textContent=navigator.onLine?'100%':'0%';
+  document.getElementById('net-badge').textContent=navigator.onLine?'ONLINE':'OFFLINE';
+  document.getElementById('net-sub').textContent='Connectivity: '+(navigator.onLine?'Active':'Disconnected');
+}
 
 /* ══ TYPEWRITER ══ */
 const twLines=['Architecting intelligent systems.','Building AI-powered automation.','Engineering enterprise databases.','Designing scalable solutions.','Turning complex ideas into real products.','Speaking fluent Python, Java, and SQL.'];
@@ -858,80 +910,191 @@ let tli=0,tci=0,tdel=false;
   if(!tdel){el.textContent=l.slice(0,++tci);if(tci===l.length){tdel=true;setTimeout(tw,2200);return;}setTimeout(tw,52);}
   else{el.textContent=l.slice(0,--tci);if(tci===0){tdel=false;tli=(tli+1)%twLines.length;setTimeout(tw,350);return;}setTimeout(tw,26);}
 })();
-/* delay start */
-document.getElementById('tw').textContent='';
-setTimeout(()=>{},1400);
 
-/* ══ COUNTER ANIMATION (Stats) ══ */
+/* ══ PROJECT FILTER ══ */
+function filterProj(type,btn){
+  document.querySelectorAll('.pf-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    if(type==='all'||card.dataset.type===type){
+      card.classList.remove('hidden');
+      card.style.animation='none';
+      void card.offsetWidth;
+      card.style.animation='';
+    }else{
+      card.classList.add('hidden');
+    }
+  });
+}
+
+/* ══ AI CHAT — Render Backend ══ */
+let chatOpen=false,voiceEnabled=false,aiMode='professional';
+const sessionId=localStorage.getItem('laith_sid')||crypto.randomUUID();
+localStorage.setItem('laith_sid',sessionId);
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  const w=document.getElementById('ai-chat-window'),b=document.getElementById('ai-bubble');
+  if(chatOpen){w.classList.add('show');w.style.display='flex';b.style.borderColor='rgba(56,189,248,0.48)';}
+  else{w.classList.remove('show');setTimeout(()=>w.style.display='none',300);b.style.borderColor='';}
+}
+
+function setMode(m,btn){
+  aiMode=m;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  addMsg('Mode switched to: '+m+'. Ask me anything!','ai-msg');
+}
+
+function sg(t){document.getElementById('cin').value=t;sm();}
+
+function showSuggestions(val){
+  const s=document.getElementById('smart-sugg');
+  if(!val||val.length<2){s.classList.remove('show');return;}
+  let suggs=[];
+  const lv=val.toLowerCase();
+  if(lv.includes('project')||lv.includes('work'))suggs=['LON System','Java App','Network Design'];
+  else if(lv.includes('skill')||lv.includes('tech'))suggs=['Python & AI','Java & OOP','SQL/Oracle'];
+  else if(lv.includes('goal')||lv.includes('future'))suggs=['Global Migration','Band 9 IELTS','Lead a Team'];
+  else if(lv.includes('cert'))suggs=['Completed Certs','In Progress','Planned'];
+  if(suggs.length){
+    s.innerHTML=suggs.map(x=>`<span class="sugg-chip" onclick="sg('${x}')">${x}</span>`).join('');
+    s.classList.add('show');
+  }else{s.classList.remove('show');}
+}
+
+async function sm(){
+  const inp=document.getElementById('cin'),txt=inp.value.trim();
+  if(!txt)return;
+  document.getElementById('smart-sugg').classList.remove('show');
+  addMsg(txt,'user-msg');inp.value='';
+  
+  const ty=document.createElement('div');
+  ty.className='typing-indicator';ty.id='ty';
+  ty.innerHTML='<span></span><span></span><span></span>';
+  document.getElementById('cmsg').appendChild(ty);sc();
+
+  // إرسال التعليمة بناءً على الشخصية المختارة
+  let finalMessage = txt;
+  if(aiMode !== 'professional') {
+    finalMessage += ` (Please answer in a ${aiMode} tone)`;
+  }
+
+  try {
+    const response = await fetch('https://laith-ai-backend.onrender.com/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: finalMessage })
+    });
+    
+    const data = await response.json();
+    document.getElementById('ty')?.remove();
+    addMsg(data.reply, 'ai-msg');
+    if(voiceEnabled)speak(data.reply);
+    
+  } catch (error) {
+    document.getElementById('ty')?.remove();
+    console.error(error);
+    addMsg(fallbackResponse(txt), 'ai-msg');
+    if(voiceEnabled)speak(fallbackResponse(txt));
+  }
+}
+
+/* Fallback if Server is asleep or offline */
+const kb=[
+  {k:['lon','automation','pipeline'],r:"LON Automation System is Laith's flagship AI project — a Python pipeline using Gemini AI + GitHub Actions that fully automates content drafting, formatting, and publishing. Zero human interaction. Production-ready."},
+  {k:['skill','stack','tech','language'],r:"Full technical arsenal: Python (AI & automation), Java (OOP, Swing desktop apps), Oracle/SQL/PL/SQL, HTML/CSS/PHP/JS, Cisco + Linux (networking). All used in real projects."},
+  {k:['contact','hire','email','job'],r:"Reach Laith via the Email button in the Contact section, or connect on LinkedIn. He's actively seeking internships, freelance, and full-time roles — especially in global markets."},
+  {k:['goal','vision','future','plan'],r:"4 major goals: Graduate with excellence, land a senior AI/dev role in Australia/Canada/Switzerland, build a product used by millions, lead an engineering team. Plus IELTS C2 + asset building."},
+  {k:['java','oop','swing','desktop'],r:"Java is Laith's enterprise OOP language. He's built full desktop applications using Java + Swing with proper MVC design patterns and Oracle DB integration via JDBC."},
+  {k:['python','gemini','ai','artificial'],r:"Python + Gemini API is where Laith's AI work lives. He's built production automation systems, intelligent content pipelines, and GitHub Actions workflows that run autonomously."},
+  {k:['network','cisco','tcp','ccna'],r:"Networking: enterprise topology design in Cisco Packet Tracer, subnetting, VLAN configuration, inter-VLAN routing, ACLs. Currently progressing toward CCNA certification."},
+  {k:['australia','canada','switzerland','global'],r:"Laith's migration plan targets Australia, Canada, or Switzerland — countries with world-class engineering environments. He's preparing with IELTS Band 9 and a strong global portfolio."},
+  {k:['cert','certificate','course'],r:"Certifications: Python for Everybody ✓, Oracle SQL Fundamentals ✓, AI for Everyone ✓. In progress: CCNA, Java Masterclass. Planned: IELTS Academic Band 9."},
+  {k:['hello','hi','hey','مرحبا','اهلا'],r:"Hey! Great to meet you 👋 I'm Laith's AI assistant. What would you like to explore?"},
+  {k:['who','laith','about'],r:"Laith Saleh is a CIS student and AI developer specializing in Python automation, Java enterprise apps, Oracle databases, and AI systems — targeting global elite tech roles."},
+];
+const fallbackArr=["Great question! Try asking about the LON System, Java projects, database skills, global goals, or certifications.","I'm trained on Laith's complete profile. Ask about his Python AI work, Oracle databases, Cisco networking, or career vision!"];
+function fallbackResponse(q){
+  const lq=q.toLowerCase();
+  for(const item of kb){if(item.k.some(k=>lq.includes(k)))return item.r;}
+  return fallbackArr[Math.floor(Math.random()*fallbackArr.length)];
+}
+
+/* ══ AI EXPLAIN PROJECT ══ */
+async function explainProject(name){
+  if(!chatOpen)toggleChat();
+  await new Promise(r=>setTimeout(r,300));
+  const msg='Explain this project briefly and professionally: '+name;
+  document.getElementById('cin').value='';
+  addMsg('Tell me about: '+name,'user-msg');
+  
+  const ty=document.createElement('div');ty.className='typing-indicator';ty.id='ty';ty.innerHTML='<span></span><span></span><span></span>';
+  document.getElementById('cmsg').appendChild(ty);sc();
+  
+  try {
+    const response = await fetch('https://laith-ai-backend.onrender.com/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: msg })
+    });
+    
+    const data = await response.json();
+    document.getElementById('ty')?.remove();
+    addMsg(data.reply, 'ai-msg');
+    if(voiceEnabled)speak(data.reply);
+    
+  } catch (error) {
+    document.getElementById('ty')?.remove();
+    addMsg(fallbackResponse(msg), 'ai-msg');
+    if(voiceEnabled)speak(fallbackResponse(msg));
+  }
+}
+
+function addMsg(t,c){
+  const d=document.createElement('div');d.className='msg '+c;d.textContent=t;
+  document.getElementById('cmsg').appendChild(d);sc();
+}
+function sc(){const c=document.getElementById('cmsg');c.scrollTop=c.scrollHeight;}
+
+/* ══ VOICE ══ */
+function toggleVoice(){
+  voiceEnabled=!voiceEnabled;
+  const btn=document.getElementById('voiceBtn');
+  btn.classList.toggle('speaking',voiceEnabled);
+  btn.title=voiceEnabled?'Voice ON — click to turn off':'Toggle AI voice';
+  if(voiceEnabled)speak('Voice mode activated. I will now read responses aloud.');
+}
+
+function speak(text){
+  if(!voiceEnabled||!window.speechSynthesis)return;
+  speechSynthesis.cancel();
+  const utter=new SpeechSynthesisUtterance(text.slice(0,300));
+  utter.rate=1;utter.pitch=1;utter.volume=0.9;
+  const voices=speechSynthesis.getVoices();
+  const eng=voices.find(v=>v.lang.startsWith('en'));
+  if(eng)utter.voice=eng;
+  speechSynthesis.speak(utter);
+}
+
+/* ══ COUNTER ANIMATION ══ */
 const cObs=new IntersectionObserver(es=>{
   es.forEach(e=>{
     if(e.isIntersecting){
-      e.target.querySelectorAll('.stat-num').forEach(n=>{
-        const end=parseInt(n.textContent);
-        if(!isNaN(end)){
-          let cur2=0;const step=Math.ceil(end/40);
-          const t=setInterval(()=>{cur2+=step;if(cur2>=end){n.textContent=end+'+';clearInterval(t);}else{n.textContent=cur2;}},30);
-        }
+      e.target.querySelectorAll('.stat-num[data-target]').forEach(n=>{
+        const end=parseInt(n.dataset.target);
+        let cur2=0;const step=Math.ceil(end/40);
+        const t=setInterval(()=>{cur2+=step;if(cur2>=end){n.textContent=end+'+';clearInterval(t);}else{n.textContent=cur2;}},30);
       });
       cObs.unobserve(e.target);
     }
   });
 },{threshold:.5});
-const strip=document.querySelector('.stats-strip');
-if(strip)cObs.observe(strip);
-
-/* ══ AI CHAT ══ */
-let open=false;
-function toggleChat(){
-  open=!open;
-  const w=document.getElementById('ai-chat-window'),b=document.getElementById('ai-bubble');
-  if(open){w.classList.add('show');w.style.display='flex';b.classList.add('active');}
-  else{w.classList.remove('show');setTimeout(()=>w.style.display='none',300);b.classList.remove('active');}
-}
-function sg(t){document.getElementById('cin').value=t;sm();}
-async function sm(){
-  const inp=document.getElementById('cin'),txt=inp.value.trim();
-  if(!txt)return;
-  am(txt,'user-msg');inp.value='';
-  const ty=document.createElement('div');
-  ty.className='typing-indicator';ty.id='ty';
-  ty.innerHTML='<span></span><span></span><span></span>';
-  document.getElementById('cmsg').appendChild(ty);sc();
-  await new Promise(r=>setTimeout(r,650+Math.random()*550));
-  document.getElementById('ty')?.remove();
-  am(gr(txt),'ai-msg');
-}
-function am(t,c){
-  const d=document.createElement('div');
-  d.className='msg '+c;d.textContent=t;
-  document.getElementById('cmsg').appendChild(d);sc();
-}
-function sc(){const c=document.getElementById('cmsg');c.scrollTop=c.scrollHeight;}
-
-const kb=[
-  {k:['lon','automation','pipeline','أتمتة'],r:"LON Automation System is Laith's flagship AI project — a Python pipeline using Gemini AI + GitHub Actions that fully automates content drafting, formatting, and publishing. Zero human interaction. It's running production-ready."},
-  {k:['skill','stack','tech','language','مهارات','برمجة'],r:"Full technical arsenal: Python (AI & automation), Java (OOP, Swing desktop apps), Oracle/SQL/PL/SQL (enterprise DBs), HTML/CSS/PHP/JS (web), Cisco + Linux (networking). All used in real projects, not just tutorials."},
-  {k:['contact','hire','email','work','job','تواصل','توظيف'],r:"Reach Laith directly via the Email button in the Contact section, or connect on LinkedIn. He's actively seeking internships, freelance, and full-time roles — especially in global markets."},
-  {k:['os','operating system','نظام'],r:"The Next-Gen AI OS is Laith's most ambitious concept — a custom operating system with generative AI baked into the kernel. Ultra-minimal GUI, AI-native system calls, performance-obsessed architecture."},
-  {k:['database','sql','oracle','db','بيانات','قاعدة'],r:"Enterprise database engineering is a core strength — relational data modeling, complex multi-table queries, PL/SQL stored procedures, performance optimization with Oracle. Built a full Student Management System on Oracle DB."},
-  {k:['goal','vision','future','plan','هدف','مستقبل'],r:"4 major goals: (1) Graduate with excellence across all CIS domains, (2) Land a senior AI/dev role globally in Australia, Canada or Switzerland, (3) Build a product used by millions, (4) Lead an engineering team. Plus IELTS C2 + asset building."},
-  {k:['java','oop','swing','desktop'],r:"Java is Laith's enterprise OOP language. He's built full desktop applications using Java + Swing with proper MVC design patterns, clean class architecture, and Oracle DB integration via JDBC."},
-  {k:['python','gemini','ai','artificial','machine'],r:"Python + Gemini API is where Laith's AI work lives. He's built production automation systems, intelligent content pipelines, and GitHub Actions workflows that run autonomously. The LON System is his proof of concept."},
-  {k:['network','cisco','tcp','ccna','security','شبكات'],r:"Networking is a solid skill set — enterprise topology design in Cisco Packet Tracer, subnetting, VLAN configuration, inter-VLAN routing, ACLs, and TCP/IP security. Currently progressing toward CCNA certification."},
-  {k:['australia','canada','switzerland','migrate','global','abroad','هجرة'],r:"Laith's migration plan targets Australia, Canada, or Switzerland — countries with world-class engineering environments. He's preparing with IELTS Band 9 and building a portfolio strong enough for these markets."},
-  {k:['cert','certificate','course','learning','ielts'],r:"Current certifications: Python for Everybody (Michigan/Coursera) ✓, Oracle SQL Fundamentals ✓, AI for Everyone (DeepLearning.AI) ✓. In progress: CCNA, Java Masterclass. Planned: IELTS Academic Band 9."},
-  {k:['project','portfolio','work','built','made'],r:"Key projects: LON AI Automation System (Python + Gemini), Student Management System (Java + Oracle), Enterprise Network Design (Cisco VLANs + ACLs), and the Next-Gen AI OS concept. All built from scratch."},
-  {k:['hello','hi','hey','مرحبا','اهلا','هلا','سلام'],r:"Hey! Great to meet you 👋 I'm Laith's AI assistant. I know everything about his technical skills, projects, certifications, and career goals. What would you like to explore?"},
-  {k:['who','laith','من','شو','عن'],r:"Laith Saleh is a CIS student and AI developer from Jordan. He specializes in Python automation, Java enterprise apps, Oracle databases, and AI systems. He's targeting global elite tech roles with a clear, ambitious roadmap."},
-  {k:['journey','timeline','story','history','background'],r:"Laith's journey: Started CIS in 2022 → Mastered Java + Oracle in 2023 (built Student Management System) → Built LON AI Automation System in 2024 → Now architecting AI OS concept + IELTS C2 + global job prep."},
-  {k:['web','html','css','php','website'],r:"Web development is part of Laith's full-stack toolkit — high-end HTML/CSS interfaces, JavaScript interactions, and PHP dynamic backends. This portfolio site is one example of his front-end precision and design sensibility."},
-];
-const fallback=["Great question. Try asking about the LON System, my Java projects, database skills, global goals, or certifications — I have detailed answers on all of them!","I'm trained on Laith's complete profile. Ask me about his Python AI work, Oracle databases, Cisco networking, certifications, or career vision!","Interesting! Ask something specific — LON System, tech stack, IELTS goal, target countries, or how to get in touch with Laith directly."];
-function gr(q){
-  const lq=q.toLowerCase();
-  for(const item of kb){if(item.k.some(k=>lq.includes(k)))return item.r;}
-  return fallback[Math.floor(Math.random()*fallback.length)];
-}
+const strip=document.querySelector('.stats-strip');if(strip)cObs.observe(strip);
 </script>
 </body>
 </html>
