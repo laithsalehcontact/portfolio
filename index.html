@@ -15,13 +15,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;}
-
-/* ══ CUSTOM CURSOR ══ */
-#cur{position:fixed;width:7px;height:7px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:background .2s;}
-#cur-ring{position:fixed;width:34px;height:34px;border:1px solid rgba(56,189,248,0.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .16s ease,border-color .2s;mix-blend-mode:screen;}
-body:has(a:hover) #cur,body:has(button:hover) #cur{background:var(--red);width:10px;height:10px;}
-body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{transform:translate(-50%,-50%) scale(1.9);border-color:rgba(232,0,29,0.5);}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
 
 /* ══ CANVAS ══ */
 #cvs{position:fixed;inset:0;z-index:0;pointer-events:none;}
@@ -413,30 +407,21 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-logo">LAITH<span>.</span></div>
   <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
   <div class="loader-text" id="loader-text">INITIALIZING SYSTEMS...</div>
 </div>
 
-<!-- CURSOR -->
-<div id="cur"></div>
-<div id="cur-ring"></div>
-
-<!-- PROGRESS -->
 <div id="progress"></div>
 
-<!-- CANVAS -->
 <canvas id="cvs"></canvas>
 
-<!-- ORBS -->
 <div class="orbs">
   <div class="orb o1"></div><div class="orb o2"></div>
   <div class="orb o3"></div><div class="orb o4"></div>
 </div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a class="nav-logo" href="#hero">LAITH<span>.</span></a>
   <ul class="nav-links">
@@ -452,7 +437,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-scan"></div>
@@ -484,7 +468,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-strip">
   <div class="stat-item"><div class="stat-num">CIS</div><div class="stat-label">Major</div></div>
   <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Projects Built</div></div>
@@ -494,7 +477,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Committed</div></div>
 </div>
 
-<!-- ABOUT -->
 <section id="about" style="padding:0;background:var(--dark);">
   <div class="sw">
     <div class="about-grid">
@@ -537,7 +519,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- EXPERTISE -->
 <section id="expertise" style="padding:0;background:var(--black);">
   <div class="sw">
     <span class="sl rv">Core Competencies</span>
@@ -554,7 +535,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- TIMELINE / JOURNEY -->
 <section id="timeline" style="padding:0;background:var(--dark);">
   <div class="sw">
     <span class="sl rv">My Story</span>
@@ -602,7 +582,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects" style="padding:0;background:var(--black);">
   <div class="sw">
     <span class="sl rv">Selected Works</span>
@@ -641,7 +620,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- CERTIFICATES / LEARNING -->
 <section id="certs" style="padding:0;background:var(--dark);">
   <div class="sw">
     <span class="sl rv">Credentials</span>
@@ -688,7 +666,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- VISION -->
 <section id="vision" style="padding:0;background:var(--black);">
   <div class="sw">
     <span class="sl rv">Forward Thinking</span>
@@ -711,7 +688,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- QUOTE -->
 <section id="quote" style="padding:0;background:var(--dark);">
   <div class="sw">
     <div class="quote-inner rv">
@@ -722,7 +698,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" style="padding:0;background:var(--black);">
   <div class="sw">
     <div class="contact-inner rv">
@@ -738,7 +713,6 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -777,17 +751,14 @@ footer{background:#010103;padding:48px 6% 28px;border-top:1px solid rgba(255,255
   </div>
 </footer>
 
-<!-- BACK TO TOP -->
 <div id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-arrow-up"></i></div>
 
-<!-- AI BUBBLE -->
 <div id="ai-bubble" onclick="toggleChat()">
   <div class="b-icon"><i class="fa-solid fa-robot"></i></div>
   <span>AI Assistant</span>
   <div class="b-status"></div>
 </div>
 
-<!-- AI CHAT -->
 <div id="ai-chat-window">
   <div class="ch">
     <div class="ch-info">
@@ -827,13 +798,6 @@ const ltimer=setInterval(()=>{
 window.addEventListener('load',()=>{
   setTimeout(()=>{document.getElementById('loader').classList.add('hide');},1700);
 });
-
-/* ══ CURSOR ══ */
-const cur=document.getElementById('cur');
-const ring=document.getElementById('cur-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function anim(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
 
 /* ══ CANVAS PARTICLES ══ */
 const cvs=document.getElementById('cvs'),ctx=cvs.getContext('2d');
